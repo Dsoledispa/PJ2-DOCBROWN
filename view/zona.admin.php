@@ -9,6 +9,35 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <ul class="padding-lat">
+        <li><a>Hola</a></li>
+        <li class="right">
+            <a href="index.php">Logout</a>
+        </li>
+    </ul>
+    <div class="row padding-top padding-lat">
+        <div>
+            <form action="zona.admin.php" method="post">
+                <input type="submit" value="añadir reserva">
+            </form>
+        </div>
+        <div>
+            <form action="zona.admin.php" method="post">
+                <input type="text" placeholder="filtra por lugar..." name="lugar">
+                <input type="submit" value="filtrar" name="filtro">
+            </form>
+        </div>
+    </div>
+    <div class="row padding-top-less padding-lat">
+        <div>
+            <table>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Descripción</th>
+                    <th>Autor</th>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
