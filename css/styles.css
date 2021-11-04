@@ -70,7 +70,7 @@ li a:hover:not(.active) {
 }
 
 #login {
-    background-color: #4caf4f5a;
+    background-color: darkkhaki;
 }
 
 .column-2 {
@@ -86,4 +86,16 @@ li a:hover:not(.active) {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+/* login.html */
+
+label {
+    font-weight: bold;
+}
+
+form {
+    background-color: grey;
+    padding: 5%;
 }

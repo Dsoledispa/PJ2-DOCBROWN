@@ -11,16 +11,22 @@
 
 <body>
     <div class="row">
-        <div class="column-2" id="portada"></div>
-        <div class="column-2" id="login">
-            <form action="../proceses/login.proc.php" method="post">
-                <input type="email" name="email" id="email" placeholder="email...">
-                <input type="password" name="password" id="password" placeholder="contraseña...">
+        <div class="column-2 column-2 height-100" id="portada"></div>
+        <div class="column-2 column-2 height-100 flex" id="login">
+            <form action="../proceses/login.proc.php" method="post" id="formulario">
+                <!--Email-->
+                <label for="email">Correo electrónico</label>
+                <input type="email" name="email" id="email" placeholder="correo@docbrown.com">
+                <br>
+                <!--Contraseña-->
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password">
+                <br>
                 <input type="submit" value="Iniciar sesión">
-                <div id="mensaje"></div>
             </form>
         </div>
     </div>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>
