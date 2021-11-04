@@ -47,6 +47,7 @@ if ($_SESSION['email']=="") {
                     <input type="number" placeholder="Introduce cantidad de personas..." name="silla">
                     <label for="disponibilidad">¿Mesa disponible?</label>
                     <select name="disponibilidad">
+                        <option value="" default>Si/No</option>
                         <option value="si" default>Si</option>
                         <option value="no">No</option>
                     </select>
@@ -61,7 +62,7 @@ if ($_SESSION['email']=="") {
            $mesa=$_POST['mesa'];
            $personas=$_POST['silla'];
            $disponibilidad=$_POST['disponibilidad'];
-           $filtro=$pdo->prepare("SELECT tbl_localizacion.nombre_localizacion,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
+           $filtro=$pdo->prepare("SELECT tbl_localizacion.nombre_localizacion,tbl_mesa.id_mesa,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
            FROM tbl_mesa 
            INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
            WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.mesa like '%{$mesa}%' and tbl_mesa.silla like '%{$personas}%' and tbl_mesa.disponibilidad like '%{$disponibilidad}%'");
@@ -90,10 +91,10 @@ if ($_SESSION['email']=="") {
                     echo "<td>{$row['silla']}</td>";
                     if ($row['disponibilidad']=="si") {
                         echo "<td>Disponible</td>";
-                        echo "<td><button type='submit'><a type='button' href='añadir.php'>Añadir reserva</a></button></td>";
+                        echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?id={$row['id_mesa']}'>Añadir reserva</a></button></td>";
                     }else{
                         echo "<td>No disponible</td>";
-                        echo "<td><button type='submit'><a type='button' href='borrar.php'>Quitar reserva</a></button></td>";
+                        echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?id={$row['id_mesa']}'>Quitar reserva</a></button></td>";
                     }            
                 echo "</tr>";
                 echo "</table>";
@@ -104,7 +105,7 @@ if ($_SESSION['email']=="") {
         //Sin filtro
        }else {
                 //Cogemos las mesas y sitios con las localizaciones correspondientes
-                $sentencia=$pdo->prepare("SELECT tbl_localizacion.nombre_localizacion,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
+                $sentencia=$pdo->prepare("SELECT tbl_localizacion.nombre_localizacion,tbl_mesa.id_mesa,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
                 FROM tbl_mesa 
                 INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion;");
                 $sentencia->execute();
@@ -124,10 +125,10 @@ if ($_SESSION['email']=="") {
                         echo "<td>{$localizacion['silla']}</td>";
                         if ($localizacion['disponibilidad']=="si") {
                             echo "<td>Disponible</td>";
-                            echo "<td><button type='submit'><a type='button' href='añadir.php'>Añadir reserva</a></button></td>";
+                            echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?id={$localizacion['id_mesa']}'>Añadir reserva</a></button></td>";
                         }else{
                             echo "<td>No disponible</td>";
-                            echo "<td><button type='submit'><a type='button' href='borrar.php'>Quitar reserva</a></button></td>";
+                            echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?id={$localizacion['id_mesa']}'>Quitar reserva</a></button></td>";
                         }            
                     echo "</tr>";
                     echo "</table>";
