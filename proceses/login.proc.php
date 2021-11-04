@@ -37,7 +37,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $stmt->execute();
     $comprobacion=$stmt->fetchAll(PDO::FETCH_ASSOC);
     try {
-        if (!$comprobacion=="") {
+        if (!empty($comprobacion)) {
             //print_r($comprobacion);
             session_start();
             $_SESSION['email']=$email;
