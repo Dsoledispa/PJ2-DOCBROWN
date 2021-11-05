@@ -5,7 +5,8 @@ if ($_SESSION['email']=="") {
     header("location:../view/login.html");
 }else {
     $id_mesa=$_GET['idmesa'];
-    $agregar=$pdo->prepare("INSERT INTO tbl_historial (id_mesa,dia_historial,inicio_historial) VALUES ({$id_mesa},curdate(),curtime())");
+    $nombre=$_SESSION["nombre"];
+    $agregar=$pdo->prepare("INSERT INTO tbl_historial (id_mesa,dia_historial,inicio_historial,fin_historial,nombre) VALUES ({$id_mesa},curdate(),curtime(),null,'{$nombre}')");
     $disponibilidad=$pdo->prepare("UPDATE tbl_mesa SET disponibilidad='no' WHERE id_mesa={$id_mesa}");
     try {
         $agregar->execute();
