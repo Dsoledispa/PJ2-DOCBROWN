@@ -23,27 +23,31 @@ if ($_SESSION['email']=="") {
             </li>
         </ul>
         <div class="row padding-top padding-lat">
-            <div>
-                <button type="submit"><a type='button' href='zona.admin.php'>Ver mesas</a></button>
-            </div>
-            <div>
+            <div class="fondo">
+            <button type="submit"><a type='button' href='zona.admin.php'>Ver mesas</a></button>
                 <form action="vistahistorial.php" method="post">
-                <label for="localizacion">Ubicacion</label>    
-                <select name="localizacion" id="localizacion">
-                <option value="" default>Todas las localizaciones</option>
-                        <?php
-                        // Mostrar todas las localizaciones que existen
-                            $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
-                            $option->execute();
-                            $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($listaoption as $row) {
-                                echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
-                            }
-                        ?>
-                </select>
-                <label for="mesa">Nº de mesa</label>
-                    <input type="number" name="mesa" id="mesa">
-                    <input type="submit" value="filtrar" name="filtrar">
+                    <div class="column-4">
+                        <label for="localizacion">Ubicacion</label>    
+                        <select name="localizacion" id="localizacion">
+                        <option value="" default>Todas las localizaciones</option>
+                                <?php
+                                // Mostrar todas las localizaciones que existen
+                                    $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
+                                    $option->execute();
+                                    $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($listaoption as $row) {
+                                        echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
+                                    }
+                                ?>
+                        </select>
+                    </div>
+                    <div class="column-4">
+                        <label for="mesa">Nº de mesa</label>
+                        <input type="number" name="mesa" id="mesa">
+                    </div>
+                    <div class="column-1">
+                        <input type="submit" value="filtrar" name="filtrar">
+                    </div>
                 </form>
             </div>
         </div>

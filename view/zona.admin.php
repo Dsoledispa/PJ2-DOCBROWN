@@ -29,6 +29,7 @@ if ($_SESSION['email']=="") {
             }
         </style> -->
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <title>Administracion</title>
     </head>
@@ -43,35 +44,43 @@ if ($_SESSION['email']=="") {
         <!--Header-->
         <!--nav-->
         <div class="row padding-top padding-lat">
-            <div>
+            <div class="fondo">
                 <button type="submit"><a type='button' href='vistahistorial.php'>Ver historial de reservas</a></button>
-            </div>
-            <div>
                 <form action="zona.admin.php" method="post">
-                    <label for="localizacion">Ubicacion</label>
-                    <select name="localizacion">
-                        <option value="" default>Todas las localizaciones</option>
-                        <?php
-                        // Mostrar todas las localizaciones que existen
-                            $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
-                            $option->execute();
-                            $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($listaoption as $row) {
-                                echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
-                            }
-                        ?>
-                    </select>
-                    <label for="mesa">¿Cuantas mesas?</label>
-                    <input type="number" placeholder="Introduce cantidad mesas..." name="mesa">´
-                    <label for="silla">¿Cuantas personas?</label>
-                    <input type="number" placeholder="Introduce cantidad de personas..." name="silla">
-                    <label for="disponibilidad">¿Mesa disponible?</label>
-                    <select name="disponibilidad">
-                        <option value="" default>Si/No</option>
-                        <option value="si">Si</option>
-                        <option value="no">No</option>
-                    </select>
-                    <input type="submit" value="filtrar" name="filtrar">
+                    <div class="column-2">
+                        <label for="localizacion">Ubicacion</label>
+                        <select name="localizacion" class="casilla">
+                            <option value="" default>Todas las localizaciones</option>
+                            <?php
+                            // Mostrar todas las localizaciones que existen
+                                $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
+                                $option->execute();
+                                $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($listaoption as $row) {
+                                    echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="column-2">
+                        <label for="mesa">¿Cuantas mesas?</label>
+                        <input type="number" placeholder="Introduce cantidad mesas..." name="mesa" class="casilla">
+                    </div>
+                    <div class="column-2">
+                        <label for="silla">¿Cuantas personas?</label>
+                        <input type="number" placeholder="Introduce cantidad de personas..." name="silla" class="casilla">
+                    </div>
+                    <div class="column-2">
+                        <label for="disponibilidad">¿Mesa disponible?</label>
+                        <select name="disponibilidad" class="casilla">
+                            <option value="" default>Si/No</option>
+                            <option value="si">Si</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="column-1">
+                        <input type="submit" value="filtrar" name="filtrar" class="btn btn-secondary">
+                    </div>
                 </form>
             </div>
         </div>
@@ -116,10 +125,10 @@ if ($_SESSION['email']=="") {
                         echo "<td>{$row['mesa']}</td>";
                         echo "<td>{$row['silla']}</td>";
                     if ($row['disponibilidad']=="si") {
-                        echo "<td>Disponible</td>";
+                        echo "<td><i class='fas fa-check green'></i></td>";
                         echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?idmesa={$row['id_mesa']}'>Añadir reserva</a></button></td>";
                     }else{
-                        echo "<td>No disponible</td>";
+                        echo "<td><i class='fas fa-times red'></i></td>";
                         echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?idmesa={$row['id_mesa']}'>Quitar reserva</a></button></td>";
                     }            
                 echo "</tr>";
@@ -154,10 +163,10 @@ if ($_SESSION['email']=="") {
                         echo "<td>{$localizacion['mesa']}</td>";
                         echo "<td>{$localizacion['silla']}</td>";
                         if ($localizacion['disponibilidad']=="si") {
-                            echo "<td>Disponible</td>";
+                            echo "<td><i class='fas fa-check green'></i></td>";
                             echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?idmesa={$localizacion['id_mesa']}'>Añadir reserva</a></button></td>";
                         }else{
-                            echo "<td>No disponible</td>";
+                            echo "<td><i class='fas fa-times red'></i></td>";
                             echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?idmesa={$localizacion['id_mesa']}'>Quitar reserva</a></button></td>";
                         }            
                     echo "</tr>";

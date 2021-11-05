@@ -120,13 +120,45 @@ li a:hover:not(.active) {
     float: left;
 }
 
+.column-4 {
+    width: 50%;
+    float: left;
+}
+
 .fondo {
     background-color: rgba(231, 230, 230, 1);
-    padding: 5%;
+    padding: 2%;
 }
 
 .casilla {
     border-radius: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    padding: 1%;
+    text-align: center;
+}
+
+th {
+    padding: 1%;
+    text-align: center;
+}
+
+td {
+    padding: 1%;
+    text-align: center;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }
 
 @media screen and (max-width: 600px) {
