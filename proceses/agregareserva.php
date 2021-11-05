@@ -4,7 +4,7 @@ require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
     header("location:../view/login.html");
 }else {
-    $id_mesa=$_GET['id'];
+    $id_mesa=$_GET['idmesa'];
     $agregar=$pdo->prepare("INSERT INTO tbl_historial (id_mesa,dia_historial,inicio_historial) VALUES ({$id_mesa},curdate(),curtime())");
     $disponibilidad=$pdo->prepare("UPDATE tbl_mesa SET disponibilidad='no' WHERE id_mesa={$id_mesa}");
     try {

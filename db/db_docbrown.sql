@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2021 a las 18:22:24
+-- Tiempo de generación: 05-11-2021 a las 18:04:27
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.24
 
@@ -20,8 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `db_docbrown`
 --
-CREATE DATABASE IF NOT EXISTS `db_docbrown` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `db_docbrown`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_historial`
+--
+
+CREATE TABLE `tbl_historial` (
+  `id_historial` int(11) NOT NULL,
+  `id_mesa` int(11) DEFAULT NULL,
+  `dia_historial` date DEFAULT NULL,
+  `inicio_historial` time DEFAULT NULL,
+  `fin_historial` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `tbl_historial`
+--
+
+INSERT INTO `tbl_historial` (`id_historial`, `id_mesa`, `dia_historial`, `inicio_historial`, `fin_historial`) VALUES
+(9, 1, '2021-11-05', '16:08:22', '16:08:24'),
+(10, 3, '2021-11-05', '17:10:02', '17:10:08'),
+(11, 2, '2021-11-05', '17:10:05', '17:10:09'),
+(12, 2, '2021-11-05', '17:45:57', '17:46:03'),
+(13, 3, '2021-11-05', '17:46:05', '17:46:25');
 
 -- --------------------------------------------------------
 
@@ -29,11 +52,10 @@ USE `db_docbrown`;
 -- Estructura de tabla para la tabla `tbl_localizacion`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_localizacion` (
-  `id_localizacion` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre_localizacion` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_localizacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `tbl_localizacion` (
+  `id_localizacion` int(11) NOT NULL,
+  `nombre_localizacion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tbl_localizacion`
@@ -50,38 +72,45 @@ INSERT INTO `tbl_localizacion` (`id_localizacion`, `nombre_localizacion`) VALUES
 -- Estructura de tabla para la tabla `tbl_mesa`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_mesa` (
-  `id_mesa` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_mesa` (
+  `id_mesa` int(11) NOT NULL,
   `mesa` int(11) DEFAULT NULL,
   `silla` int(11) DEFAULT NULL,
-  `id_localizacion` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_mesa`),
-  KEY `fk_mesa_localizacion_idx` (`id_localizacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `disponibilidad` enum('si','no') DEFAULT NULL,
+  `id_localizacion` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tbl_mesa`
 --
 
-INSERT INTO `tbl_mesa` (`id_mesa`, `mesa`, `silla`, `id_localizacion`) VALUES
-(1, 1, 2, 1),
-(2, 3, 8, 2);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tbl_reserva`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_reserva` (
-  `id_reserva` int(11) NOT NULL AUTO_INCREMENT,
-  `id_localizacion` int(11) DEFAULT NULL,
-  `id_mesa` int(11) DEFAULT NULL,
-  `nombre_reserva` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_reserva`),
-  KEY `fk_reserva_mesa_idx` (`id_mesa`),
-  KEY `fk_reserva_localizacion_idx` (`id_localizacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `tbl_mesa` (`id_mesa`, `mesa`, `silla`, `disponibilidad`, `id_localizacion`) VALUES
+(1, 1, 2, 'si', 1),
+(2, 3, 8, 'si', 2),
+(3, 1, 2, 'si', 3),
+(4, 1, 4, 'si', 1),
+(5, 2, 4, 'si', 1),
+(6, 2, 6, 'si', 1),
+(7, 3, 8, 'si', 1),
+(8, 3, 10, 'si', 1),
+(9, 4, 12, 'si', 1),
+(10, 4, 16, 'si', 1),
+(11, 5, 18, 'si', 1),
+(12, 5, 20, 'si', 1),
+(13, 1, 2, 'si', 2),
+(14, 2, 4, 'si', 2),
+(15, 2, 6, 'si', 2),
+(16, 3, 10, 'si', 2),
+(17, 4, 12, 'si', 2),
+(18, 2, 4, 'si', 3),
+(19, 2, 6, 'si', 3),
+(20, 2, 6, 'si', 3),
+(21, 3, 8, 'si', 3),
+(101, 3, 10, 'si', 3),
+(102, 4, 12, 'si', 3),
+(103, 4, 16, 'si', 3),
+(104, 5, 18, 'si', 3),
+(105, 5, 20, 'si', 3);
 
 -- --------------------------------------------------------
 
@@ -89,10 +118,9 @@ CREATE TABLE IF NOT EXISTS `tbl_reserva` (
 -- Estructura de tabla para la tabla `tbl_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_usuario` (
+CREATE TABLE `tbl_usuario` (
   `email` varchar(50) NOT NULL,
-  `contraseña` varchar(100) NOT NULL,
-  PRIMARY KEY (`email`)
+  `contraseña` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -104,21 +132,72 @@ INSERT INTO `tbl_usuario` (`email`, `contraseña`) VALUES
 ('xaviergomez@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055');
 
 --
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `tbl_historial`
+--
+ALTER TABLE `tbl_historial`
+  ADD PRIMARY KEY (`id_historial`),
+  ADD KEY `fk_historial_mesa_idx` (`id_mesa`);
+
+--
+-- Indices de la tabla `tbl_localizacion`
+--
+ALTER TABLE `tbl_localizacion`
+  ADD PRIMARY KEY (`id_localizacion`);
+
+--
+-- Indices de la tabla `tbl_mesa`
+--
+ALTER TABLE `tbl_mesa`
+  ADD PRIMARY KEY (`id_mesa`),
+  ADD KEY `fk_mesa_localizacion_idx` (`id_localizacion`);
+
+--
+-- Indices de la tabla `tbl_usuario`
+--
+ALTER TABLE `tbl_usuario`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_historial`
+--
+ALTER TABLE `tbl_historial`
+  MODIFY `id_historial` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_localizacion`
+--
+ALTER TABLE `tbl_localizacion`
+  MODIFY `id_localizacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mesa`
+--
+ALTER TABLE `tbl_mesa`
+  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `tbl_historial`
+--
+ALTER TABLE `tbl_historial`
+  ADD CONSTRAINT `fk_historial_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `tbl_mesa` (`id_mesa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tbl_mesa`
 --
 ALTER TABLE `tbl_mesa`
   ADD CONSTRAINT `fk_mesa_localizacion` FOREIGN KEY (`id_localizacion`) REFERENCES `tbl_localizacion` (`id_localizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `tbl_reserva`
---
-ALTER TABLE `tbl_reserva`
-  ADD CONSTRAINT `fk_reserva_localizacion` FOREIGN KEY (`id_localizacion`) REFERENCES `tbl_localizacion` (`id_localizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_reserva_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `tbl_mesa` (`id_mesa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
