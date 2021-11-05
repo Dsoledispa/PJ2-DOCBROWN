@@ -12,7 +12,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: blue;
+    background-color: black;
     position: fixed;
     top: 0;
     width: 100%;
@@ -32,7 +32,7 @@ li a {
 }
 
 li a:hover:not(.active) {
-    background-color: #111;
+    background-color: grey;
 }
 
 .right {
@@ -118,4 +118,19 @@ li a:hover:not(.active) {
 .column-1 {
     width: 100%;
     float: left;
+}
+
+.fondo {
+    background-color: rgba(231, 230, 230, 1);
+    padding: 5%;
+}
+
+.casilla {
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .form-signin {
+        left: auto;
+    }
 }

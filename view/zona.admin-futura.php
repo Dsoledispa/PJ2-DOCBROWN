@@ -13,7 +13,7 @@ if ($_SESSION['email']=="") {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-<!--          <style>
+        <style>
             .bd-placeholder-img {
                 font-size: 1.125rem;
                 text-anchor: middle;
@@ -27,10 +27,10 @@ if ($_SESSION['email']=="") {
                     font-size: 3.5rem;
                 }
             }
-        </style> -->
+        </style>
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-        <title>Administracion</title>
+        <title>Document</title>
     </head>
     <body>
         <!--Header-->
@@ -43,13 +43,15 @@ if ($_SESSION['email']=="") {
         <!--Header-->
         <!--nav-->
         <div class="row padding-top padding-lat">
-            <div class="fondo">
+            <div>
                 <button type="submit"><a type='button' href='vistahistorial.php'>Ver historial</a></button>
+            </div>
+            <div>
                 <form action="zona.admin.php" method="post">
                     <div class="column-2">
                         <label for="Localizacion">Localizacion</label>
                         <select name="localizacion">
-                            <option value="" default>Todas las localizaciones</option class="casilla">
+                            <option value="" default>Todas las localizaciones</option>
                             <?php
                             // Mostrar todas las localizaciones que existen
                                 $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
@@ -63,15 +65,15 @@ if ($_SESSION['email']=="") {
                     </div>
                     <div class="column-2">
                         <label for="mesa">¿Cuantas mesas?</label>
-                        <input type="number" placeholder="Introduce cantidad mesas..." name="mesa" class="casilla">
+                        <input type="number" placeholder="Introduce cantidad mesas..." name="mesa">
                     </div>
                     <div class="column-2">
                         <label for="silla">¿Cuantas personas?</label>
-                        <input type="number" placeholder="Introduce cantidad de personas..." name="silla" class="casilla">
+                        <input type="number" placeholder="Introduce cantidad de personas..." name="silla">
                     </div>
                     <div class="column-2">
                         <label for="disponibilidad">¿Mesa disponible?</label>
-                        <select name="disponibilidad" class="casilla">
+                        <select name="disponibilidad">
                             <option value="" default>Si/No</option>
                             <option value="si" default>Si</option>
                             <option value="no">No</option>
