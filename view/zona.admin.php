@@ -11,50 +11,80 @@ if ($_SESSION['email']=="") {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+            
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <title>Document</title>
     </head>
     <body>
+        <!--Header-->
         <ul class="padding-lat">
             <li><a>Hola</a></li>
             <li class="right">
                 <a href="../proceses/logout.proc.php">Logout</a>
             </li>
         </ul>
+        <!--Header-->
         <div class="row padding-top padding-lat">
             <div>
                 <button type="submit"><a type='button' href='vistahistorial.php'>Ver historial</a></button>
             </div>
             <div>
                 <form action="zona.admin.php" method="post">
-                    <label for="Localizacion">Localizacion</label>
-                    <select name="localizacion">
-                        <option value="" default>Todas las localizaciones</option>
-                        <?php
-                        // Mostrar todas las localizaciones que existen
-                            $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
-                            $option->execute();
-                            $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
-                            foreach ($listaoption as $row) {
-                                echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
-                            }
-                        ?>
-                    </select>
-                    <label for="mesa">¿Cuantas mesas?</label>
-                    <input type="number" placeholder="Introduce cantidad mesas..." name="mesa">´
-                    <label for="silla">¿Cuantas personas?</label>
-                    <input type="number" placeholder="Introduce cantidad de personas..." name="silla">
-                    <label for="disponibilidad">¿Mesa disponible?</label>
-                    <select name="disponibilidad">
-                        <option value="" default>Si/No</option>
-                        <option value="si" default>Si</option>
-                        <option value="no">No</option>
-                    </select>
-                    <input type="submit" value="filtrar" name="filtrar">
+                    <div class="column-2">
+                        <label for="Localizacion">Localizacion</label>
+                        <select name="localizacion">
+                            <option value="" default>Todas las localizaciones</option>
+                            <?php
+                            // Mostrar todas las localizaciones que existen
+                                $option=$pdo->prepare("SELECT * FROM tbl_localizacion");
+                                $option->execute();
+                                $listaoption=$option->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($listaoption as $row) {
+                                    echo "<option value='{$row['nombre_localizacion']}'>{$row['nombre_localizacion']}</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="column-2">
+                        <label for="mesa">¿Cuantas mesas?</label>
+                        <input type="number" placeholder="Introduce cantidad mesas..." name="mesa">
+                    </div>
+                    <div class="column-2">
+                        <label for="silla">¿Cuantas personas?</label>
+                        <input type="number" placeholder="Introduce cantidad de personas..." name="silla">
+                    </div>
+                    <div class="column-2">
+                        <label for="disponibilidad">¿Mesa disponible?</label>
+                        <select name="disponibilidad">
+                            <option value="" default>Si/No</option>
+                            <option value="si" default>Si</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="column-1">
+                        <input type="submit" value="filtrar" name="filtrar" class="btn btn-secondary">
+                    </div>
                 </form>
             </div>
         </div>
+        <script src="../js/script.js"></script>
        <?php
        //Con filtro
        if (isset($_POST['filtrar'])) {
@@ -141,3 +171,4 @@ if ($_SESSION['email']=="") {
     </html>
 <?php
 }
+?>

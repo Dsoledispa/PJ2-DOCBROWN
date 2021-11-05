@@ -37,3 +37,20 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+#portada {
+    background-image: url(../img/restaurante.jpg);
+    background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* position: absolute; */
+    /* z-index: 1; */
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+#iniciar {
+    color: white;
+}
