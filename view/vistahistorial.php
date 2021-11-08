@@ -45,6 +45,11 @@ if ($_SESSION['email']=="") {
                         <label for="mesa">Nº de mesa</label>
                         <input type="number" name="mesa" id="mesa">
                     </div>
+                    <!--
+                    <div class="column-4">
+                        <label for="fate">Fecha</label>
+                        <input type="date" name="date" id="date">
+                    </div>-->
                     <div class="column-1">
                         <input type="submit" value="filtrar" name="filtrar">
                     </div>
@@ -56,12 +61,11 @@ if ($_SESSION['email']=="") {
             $localizacion=$_POST['localizacion'];
             $mesa=$_POST['mesa'];
             /*$date=$_POST['date'];
-            $date=date("d/m/Y",strtotime($date));
-            echo $date;*/
+            $date=date("d/m/Y",strtotime($date));*/
             $filtro=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion 
-            WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.id_mesa like '%{$mesa}%' ORDER BY 'fecha' DESC");
+            WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.id_mesa like '%{$mesa}' ORDER BY `fecha` DESC");
             $filtro->execute();
             $filtrar=$filtro->fetchAll(PDO::FETCH_ASSOC);
             if (empty($filtrar)) {
@@ -78,7 +82,7 @@ if ($_SESSION['email']=="") {
                         echo  "<tr>";
                         echo  "<th>Nº Reserva</th>";
                         echo  "<th>Localizacion</th>";
-                        echo  "<th>nº Mesa</th>";
+                        echo  "<th>Nº de Mesa</th>";
                         echo  "<th>Fecha</th>";
                         echo  "<th>Hora inicio de reserva</th>";
                         echo  "<th>Hora final de reserva</th>";
@@ -99,10 +103,10 @@ if ($_SESSION['email']=="") {
                 }
                }
         }else {
-            $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
+            $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as `fecha`,tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
-            ORDER BY 'fecha' DESC");
+            ORDER BY `fecha` DESC");
             $historial->execute();  
             foreach ($historial as $row) {
                 echo  "<div class='row padding-top-less padding-lat'>";
