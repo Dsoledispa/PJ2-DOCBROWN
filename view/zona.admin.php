@@ -11,10 +11,8 @@ if ($_SESSION['email']=="") {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <title>Administracion</title>
     </head>
     <body>
@@ -32,7 +30,7 @@ if ($_SESSION['email']=="") {
                 <button type="submit"><a type='button' href='vistahistorial.php'>Ver historial de reservas</a></button>
                 <form action="zona.admin.php" method="post">
                     <div class="column-2">
-                        <label for="localizacion">Ubicacion</label>
+                        <label for="localizacion">Ubicacion</label><br>
                         <select name="localizacion" class="casilla">
                             <option value="" default>Todas las localizaciones</option>
                             <?php
@@ -47,15 +45,15 @@ if ($_SESSION['email']=="") {
                         </select>
                     </div>
                     <div class="column-2">
-                        <label for="mesa">¿Cuantas mesas?</label>
+                        <label for="mesa">Mesas</label><br>
                         <input type="number" placeholder="Introduce cantidad mesas..." name="mesa" class="casilla">
                     </div>
                     <div class="column-2">
-                        <label for="silla">¿Cuantas personas?</label>
+                        <label for="silla">Personas</label><br>
                         <input type="number" placeholder="Introduce cantidad de personas..." name="silla" class="casilla">
                     </div>
                     <div class="column-2">
-                        <label for="disponibilidad">¿Mesa disponible?</label>
+                        <label for="disponibilidad">Disponible</label><br>
                         <select name="disponibilidad" class="casilla">
                             <option value="" default>Si/No</option>
                             <option value="si">Si</option>
@@ -63,13 +61,12 @@ if ($_SESSION['email']=="") {
                         </select>
                     </div>
                     <div class="column-1">
-                        <input type="submit" value="filtrar" name="filtrar" class="btn btn-secondary">
+                        <input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>
-        </div>
+        </div><br>
         <!--nav-->
-        <script src="../js/script.js"></script>
        <?php
        //Con filtro
        if (isset($_POST['filtrar'])) {
@@ -91,75 +88,75 @@ if ($_SESSION['email']=="") {
             echo "</div>";
             echo "</div>";
            }else {
+            echo  "<div class='row padding-top-less padding-lat'>";
+            echo  "<div>";
+            echo  "<table>";
+            echo  "<tr>";
+            echo  "<th class='blue'>Nº de Mesa</th>";
+            echo  "<th class='blue'>Localizacion</th>";
+            echo  "<th class='blue'>nº Mesas</th>";
+            echo  "<th class='blue'>nº Personas</th>";
+            echo  "<th class='blue'>Disponibilidad</th>";
+            echo  "</tr>";
             foreach ($filtrar as $row) {
                 //Ponemos primero la localización
-                echo  "<div class='row padding-top-less padding-lat'>";
-                    echo  "<div>";
-                    echo  "<table>";
                     echo  "<tr>";
-                    echo  "<th>Nº de Mesa</th>";
-                    echo  "<th>Localizacion</th>";
-                    echo  "<th>nº Mesas</th>";
-                    echo  "<th>nº Personas</th>";
-                    echo  "<th>Disponibilidad</th>";
-                    echo  "</tr>";
-                    echo  "<tr>";
-                        echo "<td>{$row['id_mesa']}</td>";
-                        echo "<td>{$row['nombre_localizacion']}</td>";
-                        echo "<td>{$row['mesa']}</td>";
-                        echo "<td>{$row['silla']}</td>";
+                        echo "<td class='gris'>{$row['id_mesa']}</td>";
+                        echo "<td class='gris'>{$row['nombre_localizacion']}</td>";
+                        echo "<td class='gris'>{$row['mesa']}</td>";
+                        echo "<td class='gris'>{$row['silla']}</td>";
                     if ($row['disponibilidad']=="si") {
-                        echo "<td><i class='fas fa-check green'></i></td>";
+                        echo "<td class='gris'><i class='fas fa-check green'></i></td>";
                         echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?idmesa={$row['id_mesa']}'>Añadir reserva</a></button></td>";
                     }else{
-                        echo "<td><i class='fas fa-times red'></i></td>";
+                        echo "<td class='gris'><i class='fas fa-times red'></i></td>";
                         echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?idmesa={$row['id_mesa']}'>Quitar reserva</a></button></td>";
                     }            
                 echo "</tr>";
-                echo "</table>";
-                echo "</div>";
-                echo "</div>";
             }
+            echo "</table>";
+            echo "</div>";
+            echo "</div>";
            }
         //Sin filtro
        }else {
                 //Cogemos las mesas y sitios con las localizaciones correspondientes
                 $sentencia=$pdo->prepare("SELECT tbl_localizacion.id_localizacion,tbl_localizacion.nombre_localizacion,tbl_mesa.id_mesa,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
                 FROM tbl_mesa 
-                INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion;
+                INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
                 ORDER BY tbl_mesa.id_mesa ASC");
                 $sentencia->execute();
+                echo  "<div class='row padding-top-less padding-lat'>";
+                echo  "<div>";
+                echo  "<table>";
+                echo  "<tr>";
+                echo  "<th class='blue'>Nº de Mesa</th>";
+                echo  "<th class='blue'>Localizacion</th>";
+                echo  "<th class='blue'>Nº de Mesas</th>";
+                echo  "<th class='blue'>nº Personas</th>";
+                echo  "<th class='blue'>Disponibilidad</th>";
+                echo  "</tr>";
                 foreach ($sentencia as $localizacion) {
                     //Ponemos primero la localización
-                    echo  "<div class='row padding-top-less padding-lat'>";
-                    echo  "<div>";
-                    echo  "<table>";
                     echo  "<tr>";
-                    echo  "<th>Nº de Mesa</th>";
-                    echo  "<th>Localizacion</th>";
-                    echo  "<th>Nº de Mesas</th>";
-                    echo  "<th>nº Personas</th>";
-                    echo  "<th>Disponibilidad</th>";
-                    echo  "</tr>";
-                    echo  "<tr>";
-                        echo "<td>{$localizacion['id_mesa']}</td>";
-                        echo "<td>{$localizacion['nombre_localizacion']}</td>";
-                        echo "<td>{$localizacion['mesa']}</td>";
-                        echo "<td>{$localizacion['silla']}</td>";
+                        echo "<td class='gris'>{$localizacion['id_mesa']}</td>";
+                        echo "<td class='gris'>{$localizacion['nombre_localizacion']}</td>";
+                        echo "<td class='gris'>{$localizacion['mesa']}</td>";
+                        echo "<td class='gris'>{$localizacion['silla']}</td>";
                         if ($localizacion['disponibilidad']=="si") {
-                            echo "<td><i class='fas fa-check green'></i></td>";
+                            echo "<td class='gris'><i class='fas fa-check green'></i></td>";
                             echo "<td><button type='submit'><a type='button' href='../proceses/agregareserva.php?idmesa={$localizacion['id_mesa']}'>Añadir reserva</a></button></td>";
                         }else{
-                            echo "<td><i class='fas fa-times red'></i></td>";
+                            echo "<td class='gris'><i class='fas fa-times red'></i></td>";
                             echo "<td><button type='submit'><a type='button' href='../proceses/eliminareserva.php?idmesa={$localizacion['id_mesa']}'>Quitar reserva</a></button></td>";
-                        }            
+                        }
                     echo "</tr>";
-                    echo "</table>";
-                    echo "</div>";
-                    echo "</div>";
                 }
+                echo "</table>";
+                echo "</div>";
+                echo "</div>";
        }
-       ?> 
+       ?>
     </body>
     </html>
 <?php
