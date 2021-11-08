@@ -27,7 +27,7 @@ if ($_SESSION['email']=="") {
             <button type="submit"><a type='button' href='zona.admin.php'>Ver mesas</a></button>
                 <form action="vistahistorial.php" method="post">
                     <div class="column-4">
-                        <label for="localizacion">Ubicacion</label>    
+                        <label for="localizacion">Ubicacion</label><br>   
                         <select name="localizacion" id="localizacion">
                         <option value="" default>Todas las localizaciones</option>
                                 <?php
@@ -42,7 +42,7 @@ if ($_SESSION['email']=="") {
                         </select>
                     </div>
                     <div class="column-4">
-                        <label for="mesa">Nº de mesa</label>
+                        <label for="mesa">Nº de mesa</label><br>
                         <input type="number" name="mesa" id="mesa">
                     </div>
                     <!--
@@ -51,7 +51,7 @@ if ($_SESSION['email']=="") {
                         <input type="date" name="date" id="date">
                     </div>-->
                     <div class="column-1">
-                        <input type="submit" value="filtrar" name="filtrar" class="filtrar">
+                        <input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>
@@ -75,65 +75,65 @@ if ($_SESSION['email']=="") {
                 echo "</div>";
                 echo "</div>";
                }else {
+                echo  "<div class='row padding-top-less padding-lat'>";
+                echo  "<div>";
+                echo  "<table>";
+                echo  "<tr>";
+                echo  "<th class='blue'>Nº Reserva</th>";
+                echo  "<th class='blue'>Localizacion</th>";
+                echo  "<th class='blue'>Nº de Mesa</th>";
+                echo  "<th class='blue'>Fecha</th>";
+                echo  "<th class='blue'>Hora inicio de reserva</th>";
+                echo  "<th class='blue'>Hora final de reserva</th>";
+                echo  "<th class='blue'>Camarero</th>";
+                echo  "</tr>";
                 foreach ($filtrar as $row) {
-                    echo  "<div class='row padding-top-less padding-lat'>";
-                        echo  "<div>";
-                        echo  "<table>";
-                        echo  "<tr>";
-                        echo  "<th>Nº Reserva</th>";
-                        echo  "<th>Localizacion</th>";
-                        echo  "<th>Nº de Mesa</th>";
-                        echo  "<th>Fecha</th>";
-                        echo  "<th>Hora inicio de reserva</th>";
-                        echo  "<th>Hora final de reserva</th>";
-                        echo  "<th>Camarero</th>";
-                        echo  "</tr>";
                         echo   "<tr>";
-                        echo "<td>{$row['id_historial']}</td>";
-                        echo "<td>{$row['nombre_localizacion']}</td>";
-                        echo "<td>{$row['id_mesa']}</td>";
-                        echo "<td>{$row['fecha']}</td>";
-                        echo "<td>{$row['inicio_historial']}</td>";
-                        echo "<td>{$row['fin_historial']}</td>";
-                        echo "<td>{$row['nombre']}</td>";
+                        echo "<td class='gris'>{$row['id_historial']}</td>";
+                        echo "<td class='gris'>{$row['nombre_localizacion']}</td>";
+                        echo "<td class='gris'>{$row['id_mesa']}</td>";
+                        echo "<td class='gris'>{$row['fecha']}</td>";
+                        echo "<td class='gris'>{$row['inicio_historial']}</td>";
+                        echo "<td class='gris'>{$row['fin_historial']}</td>";
+                        echo "<td class='gris'>{$row['nombre']}</td>";
                         echo  "</tr>";
-                        echo "</table>";
-                        echo "</div>";
-                        echo "</div>";
                 }
+                echo "</table>";
+                echo "</div>";
+                echo "</div>";
                }
         }else {
             $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as `fecha`,tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
             ORDER BY `fecha` DESC");
-            $historial->execute();  
+            $historial->execute();
+            echo  "<div class='row padding-top-less padding-lat'>";
+            echo  "<div>";
+            echo  "<table>";
+            echo  "<tr>";
+            echo  "<th class='blue'>Nº Reserva</th>";
+            echo  "<th class='blue'>Localizacion</th>";
+            echo  "<th class='blue'>nº Mesa</th>";
+            echo  "<th class='blue'>Fecha</th>";
+            echo  "<th class='blue'>Hora inicio de reserva</th>";
+            echo  "<th class='blue'>Hora final de reserva</th>";
+            echo  "<th class='blue'>Camarero</th>";
+            echo  "</tr>";  
             foreach ($historial as $row) {
-                echo  "<div class='row padding-top-less padding-lat'>";
-                        echo  "<div>";
-                        echo  "<table>";
                         echo  "<tr>";
-                        echo  "<th>Nº Reserva</th>";
-                        echo  "<th>Localizacion</th>";
-                        echo  "<th>nº Mesa</th>";
-                        echo  "<th>Fecha</th>";
-                        echo  "<th>Hora inicio de reserva</th>";
-                        echo  "<th>Hora final de reserva</th>";
-                        echo  "<th>Camarero</th>";
+                        echo "<td class='gris'>{$row['id_historial']}</td>";
+                        echo "<td class='gris'>{$row['nombre_localizacion']}</td>";
+                        echo "<td class='gris'>{$row['id_mesa']}</td>";
+                        echo "<td class='gris'>{$row['fecha']}</td>";
+                        echo "<td class='gris'>{$row['inicio_historial']}</td>";
+                        echo "<td class='gris'>{$row['fin_historial']}</td>";
+                        echo "<td class='gris'>{$row['nombre']}</td>";
                         echo  "</tr>";
-                        echo  "<tr>";
-                        echo "<td>{$row['id_historial']}</td>";
-                        echo "<td>{$row['nombre_localizacion']}</td>";
-                        echo "<td>{$row['id_mesa']}</td>";
-                        echo "<td>{$row['fecha']}</td>";
-                        echo "<td>{$row['inicio_historial']}</td>";
-                        echo "<td>{$row['fin_historial']}</td>";
-                        echo "<td>{$row['nombre']}</td>";
-                        echo  "</tr>";
-                        echo "</table>";
-                        echo "</div>";
-                        echo "</div>";
         }
+        echo "</table>";
+        echo "</div>";
+        echo "</div>";
         ?> 
         </body>
         </html>
