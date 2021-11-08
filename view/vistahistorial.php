@@ -51,7 +51,7 @@ if ($_SESSION['email']=="") {
                         <input type="date" name="date" id="date">
                     </div>-->
                     <div class="column-1">
-                        <input type="submit" value="filtrar" name="filtrar">
+                        <input type="submit" value="filtrar" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>

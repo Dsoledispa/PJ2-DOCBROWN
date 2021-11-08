@@ -11,7 +11,6 @@ if ($_SESSION['email']=="") {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
@@ -47,15 +46,15 @@ if ($_SESSION['email']=="") {
                         </select>
                     </div>
                     <div class="column-2">
-                        <label for="mesa">¿Cuantas mesas?</label>
+                        <label for="mesa">Mesas</label>
                         <input type="number" placeholder="Introduce cantidad mesas..." name="mesa" class="casilla">
                     </div>
                     <div class="column-2">
-                        <label for="silla">¿Cuantas personas?</label>
+                        <label for="silla">Personas</label>
                         <input type="number" placeholder="Introduce cantidad de personas..." name="silla" class="casilla">
                     </div>
                     <div class="column-2">
-                        <label for="disponibilidad">¿Mesa disponible?</label>
+                        <label for="disponibilidad">Disponible</label>
                         <select name="disponibilidad" class="casilla">
                             <option value="" default>Si/No</option>
                             <option value="si">Si</option>
@@ -63,7 +62,7 @@ if ($_SESSION['email']=="") {
                         </select>
                     </div>
                     <div class="column-1">
-                        <input type="submit" value="filtrar" name="filtrar" class="btn btn-secondary">
+                        <input type="submit" value="filtrar" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>
