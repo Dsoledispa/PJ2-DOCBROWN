@@ -15,6 +15,20 @@ body {
 
 /* login.html */
 
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
 #portada {
     background-image: url(../img/restaurante.jpg);
     background-size: cover;
@@ -98,8 +112,8 @@ li a:hover:not(.active) {
 /* header */
 
 .padding-lat {
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .row:after {
@@ -141,6 +155,9 @@ li a:hover:not(.active) {
 
 .casilla {
     border-radius: 5px;
+    padding: 1%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 table {
@@ -306,12 +323,5 @@ button:active {
     }
     .col-12 {
         width: 100%;
-    }
-}
-
-@media screen and (max-width: 630px) {
-    .padding-lat {
-        padding-left: 2%;
-        padding-right: 2%;
     }
 }

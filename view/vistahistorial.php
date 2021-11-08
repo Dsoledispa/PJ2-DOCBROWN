@@ -12,8 +12,7 @@ if ($_SESSION['email']=="") {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../css/styles.css">
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-        <title>Document</title>
+        <title>Historial</title>
     </head>
     <body>
         <ul class="padding-lat">
@@ -28,7 +27,7 @@ if ($_SESSION['email']=="") {
                 <form action="vistahistorial.php" method="post">
                     <div class="column-4">
                         <label for="localizacion">Ubicacion</label><br>   
-                        <select name="localizacion" id="localizacion">
+                        <select name="localizacion" id="localizacion" class="casilla">
                         <option value="" default>Todas las localizaciones</option>
                                 <?php
                                 // Mostrar todas las localizaciones que existen
@@ -43,7 +42,7 @@ if ($_SESSION['email']=="") {
                     </div>
                     <div class="column-4">
                         <label for="mesa">Nº de mesa</label><br>
-                        <input type="number" name="mesa" id="mesa">
+                        <input type="number" name="mesa" id="mesa" class="casilla">
                     </div>
                     <!--
                     <div class="column-4">
@@ -51,11 +50,11 @@ if ($_SESSION['email']=="") {
                         <input type="date" name="date" id="date">
                     </div>-->
                     <div class="column-1">
-                        <input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
+                        <br><br><input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>
-        </div>
+        </div><br>
         <?php
         if (isset($_POST['filtrar'])) {
             $localizacion=$_POST['localizacion'];
