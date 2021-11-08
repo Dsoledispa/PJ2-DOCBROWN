@@ -30,6 +30,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     header("location: ../view/login.html");
 }*/
 if (isset($_POST['email']) && isset($_POST['password'])) {
+    session_start();
     require_once '../services/connection.php';
     $email=$_POST['email'];
     $password=$_POST['password'];
@@ -37,14 +38,16 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $stmt->execute();
     $comprobacion=$stmt->fetchAll(PDO::FETCH_ASSOC);
     try {
-        if (!empty($comprobacion)) {
-            //print_r($comprobacion);
-            session_start();
-            $_SESSION['email']=$email;
-            header("location:../view/zona.admin.php");
-        }else {
-            header("location: ../view/login.html");
-        }
+            if (!empty($comprobacion)) {
+                foreach ($comprobacion as $row) {
+                    $_SESSION['nombre']=$row['nombre'];
+                 }   
+                //print_r($comprobacion);
+                $_SESSION['email']=$email;
+                header("location:../view/zona.admin.php");
+            }else {
+                header("location: ../view/login.html");
+            }
     } catch (PDOException $e) {
         echo $e->getMessage();
     }

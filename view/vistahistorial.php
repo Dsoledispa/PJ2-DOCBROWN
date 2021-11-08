@@ -17,7 +17,7 @@ if ($_SESSION['email']=="") {
     </head>
     <body>
         <ul class="padding-lat">
-            <li><a>Hola</a></li>
+            <li><a><?php echo $_SESSION["nombre"];?></a></li>
             <li class="right">
                 <a href="../proceses/logout.proc.php">Logout</a>
             </li>
@@ -58,7 +58,7 @@ if ($_SESSION['email']=="") {
             /*$date=$_POST['date'];
             $date=date("d/m/Y",strtotime($date));
             echo $date;*/
-            $filtro=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial
+            $filtro=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion 
             WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.id_mesa like '%{$mesa}%' ORDER BY 'fecha' DESC");
@@ -82,6 +82,7 @@ if ($_SESSION['email']=="") {
                         echo  "<th>Fecha</th>";
                         echo  "<th>Hora inicio de reserva</th>";
                         echo  "<th>Hora final de reserva</th>";
+                        echo  "<th>Camarero</th>";
                         echo  "</tr>";
                         echo   "<tr>";
                         echo "<td>{$row['id_historial']}</td>";
@@ -90,6 +91,7 @@ if ($_SESSION['email']=="") {
                         echo "<td>{$row['fecha']}</td>";
                         echo "<td>{$row['inicio_historial']}</td>";
                         echo "<td>{$row['fin_historial']}</td>";
+                        echo "<td>{$row['nombre']}</td>";
                         echo  "</tr>";
                         echo "</table>";
                         echo "</div>";
@@ -97,7 +99,7 @@ if ($_SESSION['email']=="") {
                 }
                }
         }else {
-            $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial
+            $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
             ORDER BY 'fecha' DESC");
@@ -113,6 +115,7 @@ if ($_SESSION['email']=="") {
                         echo  "<th>Fecha</th>";
                         echo  "<th>Hora inicio de reserva</th>";
                         echo  "<th>Hora final de reserva</th>";
+                        echo  "<th>Camarero</th>";
                         echo  "</tr>";
                         echo  "<tr>";
                         echo "<td>{$row['id_historial']}</td>";
@@ -121,6 +124,7 @@ if ($_SESSION['email']=="") {
                         echo "<td>{$row['fecha']}</td>";
                         echo "<td>{$row['inicio_historial']}</td>";
                         echo "<td>{$row['fin_historial']}</td>";
+                        echo "<td>{$row['nombre']}</td>";
                         echo  "</tr>";
                         echo "</table>";
                         echo "</div>";

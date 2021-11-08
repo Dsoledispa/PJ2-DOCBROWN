@@ -36,7 +36,7 @@ if ($_SESSION['email']=="") {
     <body>
         <!--Header-->
         <ul class="padding-lat">
-            <li><a>Hola</a></li>
+            <li><a><?php echo $_SESSION["nombre"];?></a></li>
             <li class="right">
                 <a href="../proceses/logout.proc.php">Logout</a>
             </li>
