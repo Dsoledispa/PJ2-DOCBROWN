@@ -80,8 +80,8 @@ if ($_SESSION['email']=="") {
            $filtro=$pdo->prepare("SELECT tbl_localizacion.id_localizacion,tbl_localizacion.nombre_localizacion,tbl_mesa.id_mesa,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
            FROM tbl_mesa 
            INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
-           WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.mesa like '%{$mesa}%' and tbl_mesa.silla like '%{$personas}%' and tbl_mesa.disponibilidad like '%{$disponibilidad}%'
-           ORDER BY tbl_localizacion.nombre_localizacion ASC");
+           WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.mesa like '%{$mesa}%' and tbl_mesa.silla like '%{$personas}' and tbl_mesa.disponibilidad like '%{$disponibilidad}%'
+           ORDER BY tbl_mesa.id_mesa ASC");
            $filtro->execute();
            $filtrar=$filtro->fetchAll(PDO::FETCH_ASSOC);
            if (empty($filtrar)) {
@@ -127,7 +127,7 @@ if ($_SESSION['email']=="") {
                 $sentencia=$pdo->prepare("SELECT tbl_localizacion.id_localizacion,tbl_localizacion.nombre_localizacion,tbl_mesa.id_mesa,tbl_mesa.mesa,tbl_mesa.silla,tbl_mesa.disponibilidad 
                 FROM tbl_mesa 
                 INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion;
-                ORDER BY tbl_localizacion.nombre_localizacion ASC");
+                ORDER BY tbl_mesa.id_mesa ASC");
                 $sentencia->execute();
                 foreach ($sentencia as $localizacion) {
                     //Ponemos primero la localización
