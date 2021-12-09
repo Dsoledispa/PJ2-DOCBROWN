@@ -64,7 +64,7 @@ if ($_SESSION['email']=="") {
             $filtro=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as 'fecha',tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion 
-            WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.id_mesa like '%{$mesa}' ORDER BY `fecha` and tbl_historial.inicio_historial DESC");
+            WHERE tbl_localizacion.nombre_localizacion like '%{$localizacion}%' and tbl_mesa.id_mesa like '%{$mesa}' ORDER BY `fecha` DESC , `inicio_historial` DESC");
             $filtro->execute();
             $filtrar=$filtro->fetchAll(PDO::FETCH_ASSOC);
             if (empty($filtrar)) {
@@ -105,7 +105,7 @@ if ($_SESSION['email']=="") {
             $historial=$pdo->prepare("SELECT tbl_historial.id_historial,tbl_mesa.id_mesa,tbl_localizacion.nombre_localizacion,DATE_FORMAT(tbl_historial.dia_historial,'%d/%m/%Y') as `fecha`,tbl_historial.inicio_historial,tbl_historial.fin_historial,tbl_historial.nombre
             FROM tbl_historial INNER JOIN tbl_mesa ON tbl_historial.id_mesa=tbl_mesa.id_mesa
             INNER JOIN tbl_localizacion ON tbl_mesa.id_localizacion=tbl_localizacion.id_localizacion
-            ORDER BY `fecha` and tbl_historial.inicio_historial DESC");
+            ORDER BY `fecha` DESC , `inicio_historial` DESC");
             $historial->execute(); 
             echo  "<div class='row padding-top-less padding-lat'>";
             echo  "<div>";

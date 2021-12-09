@@ -100,7 +100,7 @@ li a {
     font-size: 15px;
 }
 
-li a:hover:not(.active) {
+li a:hover {
     background-color: grey;
 }
 
@@ -208,6 +208,10 @@ label {
     padding-left: 1%;
     color: royalblue;
     border-radius: 5px;
+}
+
+.filtrar:hover {
+    background-color: #cccccc;
 }
 
 button {
