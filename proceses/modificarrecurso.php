@@ -2,7 +2,7 @@
 session_start();
 require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
-    header("location:../view/login.html");
+    header("location:../view/login.php");
 }else {
     $silla_m=$_POST["silla_m"];
     $disponibilidad_m=$_POST["disponibilidad_m"];

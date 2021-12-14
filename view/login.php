@@ -27,6 +27,13 @@
             </form>
         </main>
     </div>
+    <?php
+    if (!empty($_GET['error'])){
+        if ($_GET['error']==1){
+            echo "<div id='error'></div>";
+        }
+    }
+    ?>
     <!--Validar login-->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../js/script.js"></script>
