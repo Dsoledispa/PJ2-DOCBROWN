@@ -2,7 +2,7 @@
 require_once "../services/connection.php";
 session_start();
 if ($_SESSION['email']=="") {
-    header("location:login.html");
+    header("location:login.php");
 }else {
     ?>
     <!DOCTYPE html>
@@ -27,10 +27,7 @@ if ($_SESSION['email']=="") {
         <!--nav-->
         <div class="row padding-top padding-lat">
             <div class="fondo">
-                <button type="submit"><a type='button' href='zona.sala.php'>Salas</a></button>
-                <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
-                <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
-                <button type="submit"><a type='button' href='zona.recursos.php'>Recursos</a></button>
+                <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
                 <form action="zona.mesa.php" method="post">
                     <div class="column-2">
                         <label for="silla">Personas</label><br>

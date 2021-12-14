@@ -2,7 +2,7 @@
 require_once "../services/connection.php";
 session_start();
 if ($_SESSION['email']=="") {
-    header("location:login.html");
+    header("location:login.php");
 }else {
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ if ($_SESSION['email']=="") {
         </ul>
     <!--Header-->
     <br><br><br><br>
-    <button type="submit"><a type='button' href='zona.sala.php'>Salas</a></button>
+    <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
     <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
     <button type="submit"><a type='button' href='zona.recursos.php'>Recursos</a></button>
     <button type="submit"><a type='button' href='form.usuarios.php'>Crear usuario</a></button>

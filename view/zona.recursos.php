@@ -2,7 +2,7 @@
 require_once "../services/connection.php";
 session_start();
 if ($_SESSION['email']=="") {
-    header("location:login.html");
+    header("location:login.php");
 }else {
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,8 @@ if ($_SESSION['email']=="") {
         </ul>
     <!--Header-->
     <br><br><br><br>
-    <button type="submit"><a type='button' href='zona.sala.php'>Salas</a></button>
+    <?php print_r ($_SESSION); ?>
+    <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
     <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
     <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
     <button type="submit"><a type='button' href='form.recursos.php'>Crear mesas</a></button>
@@ -38,14 +39,15 @@ if ($_SESSION['email']=="") {
         echo  "<div>";
         echo  "<table>";
         echo  "<tr>";
+        echo  "<th class='blue'>Sala</th>";
         echo  "<th class='blue'>ID mesa</th>";
         echo  "<th class='blue'>Numero sillas</th>";
         echo  "<th class='blue'>Disponibilidad</th>";
-        echo  "<th class='blue'>Sala</th>";
         echo  "</tr>";
         foreach ($recursos as $recurso) {
             //Ponemos primero la localización
             echo  "<tr>";
+                echo "<td class='gris'>{$recurso['nombre_s']}</td>";
                 echo "<td class='gris'>{$recurso['id_m']}</td>";
                 echo "<td class='gris'>{$recurso['silla_m']}</td>";
                 if ($recurso['disponibilidad_m']=="si") {
@@ -53,7 +55,6 @@ if ($_SESSION['email']=="") {
                 }else{
                     echo "<td class='gris'><i class='fas fa-times red'></i></td>";
                 }
-                echo "<td class='gris'>{$recurso['nombre_s']}</td>";
                 echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
                 echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
             echo "</tr>";

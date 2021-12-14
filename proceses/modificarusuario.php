@@ -2,13 +2,15 @@
 session_start();
 require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
-    header("location:../view/login.html");
+    header("location:../view/login.php");
 }else {
     $nombre_u=$_POST["nombre_u"];
     $apellido_u=$_POST["apellido_u"];
     $correo_u=$_POST["correo_u"];
     $password_u=$_POST["contraseña_u"];
-    $contraseña_u=md5('{$password_u}');
+    if (!empty($password_u)){
+        $contraseña_u=md5($_POST["contraseña_u"]);
+    }
     $tipo_u=$_POST["tipo_u"];
     $disponibilidad_u=$_POST["disponibilidad_u"];
     $id_u=$_POST["id_u"];

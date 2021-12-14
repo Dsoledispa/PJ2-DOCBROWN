@@ -28,3 +28,12 @@ function validar() {
         return true;
     }
 }
+
+let error = document.getElementById('error');
+if (error != null) {
+    swal({
+        title: "Error",
+        text: "Tu usuario no esta habilitado",
+        icon: "error",
+    });
+}

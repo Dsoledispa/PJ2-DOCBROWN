@@ -2,7 +2,7 @@
 session_start();
 require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
-    header("location:../view/login.html");
+    header("location:../view/login.php");
 }else {
     $id_m=$_GET['id_m'];
     $eliminarmesa=$pdo->prepare("DELETE FROM tbl_mesa WHERE id_m = {$id_m}");

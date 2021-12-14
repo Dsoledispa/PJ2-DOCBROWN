@@ -2,7 +2,7 @@
 session_start();
 require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
-    header("location:../view/login.html");
+    header("location:../view/login.php");
 }else {
     $id_mesa=$_GET['idmesa'];
     $quitarreserva=$pdo->prepare("UPDATE tbl_historial SET fin_historial=curtime() WHERE id_mesa={$id_mesa} and isnull(fin_historial)");

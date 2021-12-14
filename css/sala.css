@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+
+/* Zona sala */
+
+.three-column {
+    float: left;
+    width: 33.33%;
+    padding: 2%;
+    text-align: center;
+}
+
+.three-column img {
+    width: 100%;
+}
+
+
+/* Zona sala */

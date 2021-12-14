@@ -2,7 +2,7 @@
 session_start();
 require_once '../services/connection.php';
 if ($_SESSION['email']=="") {
-    header("location:../view/login.html");
+    header("location:../view/login.php");
 }else {
     $id_u=$_GET['id_u'];
     $eliminarusuario=$pdo->prepare("DELETE FROM tbl_usuario WHERE id_u = {$id_u}");
