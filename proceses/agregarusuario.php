@@ -10,11 +10,12 @@ if ($_SESSION['email']=="") {
     $contraseña_u=$_POST["contraseña_u"];
     $tipo_u=$_POST["tipo_u"];
     $disponibilidad_u=$_POST["disponibilidad_u"];
-    $voluntarioevento=$pdo->prepare("INSERT INTO tbl_evento_voluntario (id_evento, id_voluntario) VALUES ({$id_evento}, ?);");
+    $usuarios=$pdo->prepare("INSERT INTO tbl_usuario (nombre_u, apellido_u, correo_u, contraseña_u, tipo_u, disponibilidad_u) VALUES
+    ('{$nombre_u}','{$apellido_u}','{$correo_u}',md5('{$contraseña_u}'),'{$tipo_u}','{$disponibilidad_u}');");
     try {
         $pdo->beginTransaction();
-        $agregarvoluntario->execute();
-        if (empty($agregarvoluntario)) {
+        $usuarios->execute();
+        if (empty($usuarios)) {
             echo "No se ha ejecutado bien la sentencia";
         }else {
             header('location:../view/zona.usuarios.php');

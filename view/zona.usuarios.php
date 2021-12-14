@@ -56,6 +56,7 @@ if ($_SESSION['email']=="") {
                     echo "<td class='gris'><i class='fas fa-times red'></i></td>";
                 }
                 echo "<td><button type='submit'><a type='button' href='mod.usuarios.php?id_u={$usuario['id_u']}'>Modificar usuario</a></button></td>";
+                echo "<td><button type='submit'><a type='button' href='../proceses/eliminarusuario.php?id_u={$usuario['id_u']}'>Eliminar usuario</a></button></td>";
             echo "</tr>";
         }
         echo "</table>";
