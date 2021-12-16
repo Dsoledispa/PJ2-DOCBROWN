@@ -104,8 +104,8 @@ if ($_SESSION['email']=="") {
                         echo  "<th class='blue'>Telefono</th>";
                         echo  "<th class='blue'>Num Personas</th>";
                         echo  "<th class='blue'>Fecha</th>";
-                        echo  "<th class='blue'>Hora inicio de reserva</th>";
-                        echo  "<th class='blue'>Hora final de reserva</th>";
+                        echo  "<th class='blue'>Inicio reserva</th>";
+                        echo  "<th class='blue'>Final reserva</th>";
                         echo  "<th class='blue'>Camarero</th>";
                         echo  "</tr>";   
                         foreach ($filtro as $row) {
@@ -121,7 +121,7 @@ if ($_SESSION['email']=="") {
                             echo "<td class='gris'>{$row['hora_inicio_r']}</td>";
                             echo "<td class='gris'>{$row['hora_final_r']}</td>";
                             echo "<td class='gris'>{$row['nombre_u']}</td>";
-                            echo "<td><button type='submit'><a type='button'>Asignar mesas</a></button></td>";
+                            echo "<td><button type='submit'><a type='button' href='../proceses/archivarreserva.php?id_r={$row['id_r']}'>Archivar reserva</a></button></td>";
                             echo  "</tr>";
                         }
                         echo "</table>";
@@ -137,10 +137,11 @@ if ($_SESSION['email']=="") {
             LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
             LEFT JOIN tbl_usuario u on r.id_u=u.id_u
             LEFT JOIN tbl_sala s on m.id_s=s.id_s
+            WHERE r.activa_r='si'
             ORDER BY fecha_r DESC , hora_inicio_r DESC");
                     try{
                         $pdo->beginTransaction();
-                        $historial->execute(); 
+                        $historial->execute();
                         echo  "<div class='row padding-top-less padding-lat'>";
                         echo  "<table>";
                         echo  "<tr>";
@@ -152,8 +153,8 @@ if ($_SESSION['email']=="") {
                         echo  "<th class='blue'>Telefono</th>";
                         echo  "<th class='blue'>Num Personas</th>";
                         echo  "<th class='blue'>Fecha</th>";
-                        echo  "<th class='blue'>Hora inicio de reserva</th>";
-                        echo  "<th class='blue'>Hora final de reserva</th>";
+                        echo  "<th class='blue'>Inicio reserva</th>";
+                        echo  "<th class='blue'>Final reserva</th>";
                         echo  "<th class='blue'>Camarero</th>";
                         echo  "</tr>";   
                         foreach ($historial as $row) {
@@ -169,7 +170,7 @@ if ($_SESSION['email']=="") {
                             echo "<td class='gris'>{$row['hora_inicio_r']}</td>";
                             echo "<td class='gris'>{$row['hora_final_r']}</td>";
                             echo "<td class='gris'>{$row['nombre_u']}</td>";
-                            echo "<td><button type='submit'><a type='button' href='zona.mesa.php?id_s={$row['id_s']}'>Asignar mesas</a></button></td>";
+                            echo "<td><button type='submit'><a type='button' href='../proceses/archivarreserva.php?id_r={$row['id_r']}'>Archivar reserva</a></button></td>";
                             echo  "</tr>";
                         }
                         echo "</table>";

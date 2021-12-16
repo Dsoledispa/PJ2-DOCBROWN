@@ -23,6 +23,7 @@ if ($_SESSION['email']=="") {
     <title>Formulario reservas</title>
 </head>
 <body>
+    <?php $id_s=$_GET['id_s']; ?>
     <div class="container">
 		<div class="main">
 			<div class="main-center">
@@ -53,7 +54,7 @@ if ($_SESSION['email']=="") {
                         <label for="fecha_r">Fecha</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="date" class="form-control" name="fecha_r"/>
+                                <input type="date" min="<?php echo date("Y-m-d"); ?>" class="form-control" name="fecha_r"/>
                             </div>
                     </div>
                     <div class="form-group">
@@ -67,11 +68,33 @@ if ($_SESSION['email']=="") {
                         <label for="hora_inicio_r">Hora</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="time" class="form-control" name="hora_inicio_r"/>
+                                <input type="time" min="12:00" max="24:00" class="form-control" name="hora_inicio_r"/>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="id_m">Seleccionar mesas</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <select multiple name="id_m[]" class="form-control form-control-lg">
+                                <?php
+                                    // Mostrar todas las localizaciones que existen
+                                    $option=$pdo->prepare("SELECT * FROM tbl_mesa WHERE id_s='{$id_s}'");
+                                    try{
+                                        $pdo->beginTransaction();
+                                        $option->execute();
+                                        foreach ($option as $row) {
+                                            echo "<option value='{$row['id_m']}'>{$row['id_m']} mesa de {$row['silla_m']} sillas</option>";
+                                        }
+                                        $pdo->commit();
+                                    } catch (Exception $e) {
+                                        $pdo->rollBack();
+                                        echo "Fallo: " . $e->getMessage();
+                                    }
+                                ?>
+                                </select>
                             </div>
                     </div>
                     <?php
-                        $id_s=$_GET['id_s'];
                         echo "<input type='hidden' name='id_s' value=$id_s>";
                     ?>
                     <button type="submit">ENVIAR</button> <!-- ENVIAR NUEVO (BOOTSTRAP) -->   
