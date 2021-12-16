@@ -14,6 +14,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         }else {
             foreach ($comprobacion as $row) {
                 $_SESSION['nombre']=$row['nombre_u'];
+                $_SESSION['id_u']=$row['id_u'];
                 if($row['tipo_u']=='administrador'){
                     $_SESSION['tipo_u']=$row['tipo_u'];
                 }

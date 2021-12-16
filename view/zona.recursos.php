@@ -25,7 +25,6 @@ if ($_SESSION['email']=="") {
         </ul>
     <!--Header-->
     <br><br><br><br>
-    <?php print_r ($_SESSION); ?>
     <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
     <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
     <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
