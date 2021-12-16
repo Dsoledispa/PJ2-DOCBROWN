@@ -31,7 +31,7 @@ if ($_SESSION['email']=="") {
             $stmt->execute();
             foreach ($stmt as $row) {
                 echo "<div class='three-column'>";
-                echo "<a href='../proceses/elegirsala.php?id_s={$row['id_s']}'>";
+                echo "<a href='form.reserva.php?id_s={$row['id_s']}'>";
                 echo "<img src='{$row['img_s']}'alt='Fallo en la carga de base de datos'>";
                 echo "</a><br>";
                 echo "<h2>{$row['nombre_s']}</h2><br>";

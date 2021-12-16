@@ -1,170 +1,273 @@
-CREATE DATABASE  IF NOT EXISTS `2122_soledispadiego` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `2122_soledispadiego`;
--- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: 2122_soledispadiego
--- ------------------------------------------------------
--- Server version	8.0.26
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 15-12-2021 a las 18:55:30
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.24
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `tbl_localizacion`
+-- Base de datos: `2122_soledispadiego`
 --
+CREATE DATABASE IF NOT EXISTS `2122_soledispadiego` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `2122_soledispadiego`;
 
-DROP TABLE IF EXISTS `tbl_localizacion`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tbl_localizacion` (
-  `id_l` int NOT NULL AUTO_INCREMENT,
-  `nombre_l` varchar(45) DEFAULT NULL,
-  `descripcion_l` varchar(100) DEFAULT NULL,
-  `img_l` varchar(100) DEFAULT NULL,
-  `disponibilidad_l` enum('si','no') DEFAULT NULL,
-  PRIMARY KEY (`id_l`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tbl_localizacion`
+-- Estructura de tabla para la tabla `tbl_mesa`
 --
 
-LOCK TABLES `tbl_localizacion` WRITE;
-/*!40000 ALTER TABLE `tbl_localizacion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_localizacion` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbl_mesa`
---
-
-DROP TABLE IF EXISTS `tbl_mesa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_mesa` (
-  `id_m` int NOT NULL AUTO_INCREMENT,
-  `silla_m` int DEFAULT NULL,
+  `id_m` int(11) NOT NULL,
+  `silla_m` int(11) DEFAULT NULL,
   `disponibilidad_m` enum('si','no') DEFAULT NULL,
-  `id_l` int DEFAULT NULL,
-  PRIMARY KEY (`id_m`),
-  KEY `fk_tbl_mesa_tbl_localizacion_idx` (`id_l`),
-  CONSTRAINT `fk_tbl_mesa_tbl_localizacion` FOREIGN KEY (`id_l`) REFERENCES `tbl_localizacion` (`id_l`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_s` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tbl_mesa`
+-- Volcado de datos para la tabla `tbl_mesa`
 --
 
-LOCK TABLES `tbl_mesa` WRITE;
-/*!40000 ALTER TABLE `tbl_mesa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_mesa` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
+(1, 4, 'si', 1),
+(2, 8, 'si', 2),
+(3, 4, 'si', 3),
+(4, 4, 'si', 1),
+(5, 4, 'si', 1),
+(6, 4, 'si', 1),
+(7, 8, 'si', 1),
+(8, 10, 'si', 1),
+(9, 12, 'si', 1),
+(10, 16, 'si', 1),
+(11, 18, 'si', 1),
+(12, 4, 'si', 1),
+(13, 2, 'si', 2),
+(14, 4, 'si', 2),
+(15, 6, 'si', 2),
+(16, 10, 'si', 2),
+(17, 12, 'si', 2),
+(18, 4, 'si', 3),
+(19, 6, 'si', 3),
+(20, 6, 'si', 3),
+(21, 8, 'si', 3),
+(22, 10, 'si', 3),
+(23, 12, 'si', 3),
+(24, 16, 'si', 3),
+(25, 18, 'si', 3),
+(26, 20, 'si', 3),
+(28, 8, 'no', 2);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_mesa/reserva`
+-- Estructura de tabla para la tabla `tbl_mesa/reserva`
 --
 
-DROP TABLE IF EXISTS `tbl_mesa/reserva`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_mesa/reserva` (
-  `id_mesa/reserva` int NOT NULL AUTO_INCREMENT,
-  `id_m` int DEFAULT NULL,
-  `id_r` int DEFAULT NULL,
-  PRIMARY KEY (`id_mesa/reserva`),
-  KEY `fk_tbl_mesa/reserva_tbl_mesa_idx` (`id_m`),
-  KEY `fk_tbl_mesa/reserva_tbl_reserva_idx` (`id_r`),
-  CONSTRAINT `fk_tbl_mesa/reserva_tbl_mesa` FOREIGN KEY (`id_m`) REFERENCES `tbl_mesa` (`id_m`),
-  CONSTRAINT `fk_tbl_mesa/reserva_tbl_reserva` FOREIGN KEY (`id_r`) REFERENCES `tbl_reserva` (`id_r`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_mesa/reserva` int(11) NOT NULL,
+  `id_m` int(11) DEFAULT NULL,
+  `id_r` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tbl_mesa/reserva`
+-- Volcado de datos para la tabla `tbl_mesa/reserva`
 --
 
-LOCK TABLES `tbl_mesa/reserva` WRITE;
-/*!40000 ALTER TABLE `tbl_mesa/reserva` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_mesa/reserva` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tbl_mesa/reserva` (`id_mesa/reserva`, `id_m`, `id_r`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_reserva`
+-- Estructura de tabla para la tabla `tbl_reserva`
 --
 
-DROP TABLE IF EXISTS `tbl_reserva`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbl_reserva` (
-  `id_r` int NOT NULL AUTO_INCREMENT,
+  `id_r` int(11) NOT NULL,
   `nombre_r` varchar(45) DEFAULT NULL,
   `apellido_r` varchar(45) DEFAULT NULL,
-  `telefono_r` int DEFAULT NULL,
+  `telefono_r` int(9) DEFAULT NULL,
   `fecha_r` date DEFAULT NULL,
-  `num_personas_r` int DEFAULT NULL,
+  `num_personas_r` int(11) DEFAULT NULL,
   `hora_inicio_r` time DEFAULT NULL,
   `hora_final_r` time DEFAULT NULL,
-  `id_u` int DEFAULT NULL,
-  PRIMARY KEY (`id_r`),
-  KEY `fk_tbl_reserva_tbl_usuario_idx` (`id_u`),
-  CONSTRAINT `fk_tbl_reserva_tbl_usuario` FOREIGN KEY (`id_u`) REFERENCES `tbl_usuario` (`id_u`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id_u` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tbl_reserva`
+-- Volcado de datos para la tabla `tbl_reserva`
 --
 
-LOCK TABLES `tbl_reserva` WRITE;
-/*!40000 ALTER TABLE `tbl_reserva` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_reserva` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tbl_reserva` (`id_r`, `nombre_r`, `apellido_r`, `telefono_r`, `fecha_r`, `num_personas_r`, `hora_inicio_r`, `hora_final_r`, `id_u`) VALUES
+(1, 'javier', 'soledispa', 657865324, '2021-12-21', 4, '12:00:00', NULL, 5);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_usuario`
+-- Estructura de tabla para la tabla `tbl_sala`
 --
 
-DROP TABLE IF EXISTS `tbl_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbl_sala` (
+  `id_s` int(11) NOT NULL,
+  `nombre_s` varchar(45) DEFAULT NULL,
+  `descripcion_s` varchar(100) DEFAULT NULL,
+  `img_s` varchar(100) DEFAULT NULL,
+  `disponibilidad_s` enum('si','no') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tbl_sala`
+--
+
+INSERT INTO `tbl_sala` (`id_s`, `nombre_s`, `descripcion_s`, `img_s`, `disponibilidad_s`) VALUES
+(1, 'Terraza', 'Zona del restaurante con terraza', '../img/terraza.jpg', 'si'),
+(2, 'Comedor', 'Zona del restaurante con comedor', '../img/comedor.jpg', 'si'),
+(3, 'Sala Privada', 'Zona del restaurante con sala privada', '../img/sala_privada.jpg', 'si');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_usuario`
+--
+
 CREATE TABLE `tbl_usuario` (
-  `id_u` int NOT NULL AUTO_INCREMENT,
+  `id_u` int(11) NOT NULL,
   `nombre_u` varchar(45) DEFAULT NULL,
   `apellido_u` varchar(45) DEFAULT NULL,
   `correo_u` varchar(100) DEFAULT NULL,
   `contraseña_u` varchar(45) DEFAULT NULL,
   `tipo_u` enum('camarero','administrador') DEFAULT NULL,
-  `disponibilidad_u` enum('si','no') DEFAULT NULL,
-  PRIMARY KEY (`id_u`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `disponibilidad_u` enum('si','no') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tbl_usuario`
+-- Volcado de datos para la tabla `tbl_usuario`
 --
 
-LOCK TABLES `tbl_usuario` WRITE;
-/*!40000 ALTER TABLE `tbl_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbl_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `tbl_usuario` (`id_u`, `nombre_u`, `apellido_u`, `correo_u`, `contraseña_u`, `tipo_u`, `disponibilidad_u`) VALUES
+(1, 'Agnes', 'Plans', 'agnesplans@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(2, 'Arnau', 'Balart', 'arnaubalart@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
+(3, 'Carlos', 'Piedra', 'carlospiedra@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(4, 'Danny', 'Larrea', 'dannylarrea@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(5, 'Diego', 'Soledispa', 'diegosoledispa@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(6, 'Ignasi', 'Romero', 'ignasiromero@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(7, 'Javier', 'Soledispa', 'javiersoledispa@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
+(8, 'Josep', 'Marti', 'josepmarti@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
+(9, 'Miquel', 'Andreu', 'miquelandreu@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(10, 'Sergio', 'Jimenez', 'sergiojimenez@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(11, 'Sergio23', 'Sergio23', 'sergio23@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(12, 'Xavi', 'Gomez', 'xaviergomez@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
+(13, 'Pedro', 'Garcia', 'pedrogarcia@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
+(15, 'Moises', 'Soledispa', 'moisessoledispa@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'no');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `tbl_mesa`
+--
+ALTER TABLE `tbl_mesa`
+  ADD PRIMARY KEY (`id_m`),
+  ADD KEY `fk_tbl_mesa_tbl_localizacion_idx` (`id_s`);
+
+--
+-- Indices de la tabla `tbl_mesa/reserva`
+--
+ALTER TABLE `tbl_mesa/reserva`
+  ADD PRIMARY KEY (`id_mesa/reserva`),
+  ADD KEY `fk_tbl_mesa/reserva_tbl_mesa_idx` (`id_m`),
+  ADD KEY `fk_tbl_mesa/reserva_tbl_reserva_idx` (`id_r`);
+
+--
+-- Indices de la tabla `tbl_reserva`
+--
+ALTER TABLE `tbl_reserva`
+  ADD PRIMARY KEY (`id_r`),
+  ADD KEY `fk_tbl_reserva_tbl_usuario_idx` (`id_u`);
+
+--
+-- Indices de la tabla `tbl_sala`
+--
+ALTER TABLE `tbl_sala`
+  ADD PRIMARY KEY (`id_s`);
+
+--
+-- Indices de la tabla `tbl_usuario`
+--
+ALTER TABLE `tbl_usuario`
+  ADD PRIMARY KEY (`id_u`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mesa`
+--
+ALTER TABLE `tbl_mesa`
+  MODIFY `id_m` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_mesa/reserva`
+--
+ALTER TABLE `tbl_mesa/reserva`
+  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_reserva`
+--
+ALTER TABLE `tbl_reserva`
+  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_sala`
+--
+ALTER TABLE `tbl_sala`
+  MODIFY `id_s` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tbl_usuario`
+--
+ALTER TABLE `tbl_usuario`
+  MODIFY `id_u` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `tbl_mesa`
+--
+ALTER TABLE `tbl_mesa`
+  ADD CONSTRAINT `fk_tbl_mesa_tbl_localizacion` FOREIGN KEY (`id_s`) REFERENCES `tbl_sala` (`id_s`);
+
+--
+-- Filtros para la tabla `tbl_mesa/reserva`
+--
+ALTER TABLE `tbl_mesa/reserva`
+  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_mesa` FOREIGN KEY (`id_m`) REFERENCES `tbl_mesa` (`id_m`),
+  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_reserva` FOREIGN KEY (`id_r`) REFERENCES `tbl_reserva` (`id_r`);
+
+--
+-- Filtros para la tabla `tbl_reserva`
+--
+ALTER TABLE `tbl_reserva`
+  ADD CONSTRAINT `fk_tbl_reserva_tbl_usuario` FOREIGN KEY (`id_u`) REFERENCES `tbl_usuario` (`id_u`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-12-09 19:56:13
