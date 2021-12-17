@@ -5,13 +5,13 @@ if ($_SESSION['email']=="") {
     header("location:../view/login.php");
 }else {
     $id_u=$_SESSION['id_u'];
-    $nombre_r=$_POST["nombre_r"];
-    $apellido_r=$_POST["apellido_r"];
-    $telefono_r=$_POST["telefono_r"];
-    $fecha_r=$_POST["fecha_r"];
-    $num_personas_r=$_POST["num_personas_r"];
-    $franja_horaria_r=$_POST["franja_horaria_r"];
-    $id_s=$_POST["id_s"];
+    $id_s=$_SESSION["id_s"];
+    $nombre_r=$_SESSION['sesionform1']['nombre_r'];
+    $apellido_r=$_SESSION['sesionform1']['apellido_r'];
+    $telefono_r=$_SESSION['sesionform1']['telefono_r'];
+    $num_personas_r=$_SESSION['sesionform1']['num_personas_r'];
+    $fecha_r=$_SESSION['sesionform1']['fecha_r'];
+    $franja_horaria_r=$_SESSION['sesionform2']['franja_horaria_r'];
     $id_m=$_POST['id_m'];
     $reserva=$pdo->prepare("INSERT INTO tbl_reserva (nombre_r, apellido_r, telefono_r, fecha_r, num_personas_r, franja_horaria_r, id_u) VALUES
     ('{$nombre_r}', '{$apellido_r}', {$telefono_r}, '{$fecha_r}', {$num_personas_r}, {$franja_horaria_r}, {$id_u});");
@@ -28,6 +28,9 @@ if ($_SESSION['email']=="") {
             $disponibilidad->bindParam(1, $id_mesa);
             $disponibilidad->execute();
         }
+        unset($_SESSION['sesionform1']);
+        unset($_SESSION['sesionform2']);
+        unset($_SESSION['id_s']);
         if (empty($reserva ) && empty($asignarmesa)) {
             echo "No se ha ejecutado bien la sentencia";
         }else {

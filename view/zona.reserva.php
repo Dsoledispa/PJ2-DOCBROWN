@@ -56,11 +56,10 @@ if ($_SESSION['email']=="") {
                         <label for="camarero">Camarero</label><br>
                         <input type="text" name="camarero" class="casilla">
                     </div>
-                    <!--
                     <div class="column-4">
-                        <label for="fate">Fecha</label>
-                        <input type="date" name="date" id="date">
-                    </div>-->
+                        <label for="fecha">Fecha</label><br>
+                        <input type="date" min="<?php echo date("Y-m-d"); ?>" name="fecha" class="casilla">
+                    </div>
                     <div class="column-1">
                         <br><br><input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
                     </div>
@@ -72,6 +71,7 @@ if ($_SESSION['email']=="") {
             $sala=$_POST['sala'];
             $numpersonas=$_POST['numpersonas'];
             $camarero=$_POST['camarero'];
+            $fecha=$_POST['fecha'];
             $data = array();
             if (!empty($sala)){
                 $data[]="nombre_s = '{$sala}'";
@@ -81,6 +81,9 @@ if ($_SESSION['email']=="") {
             }
             if (!empty($camarero)){
                 $data[]="nombre_u = '{$camarero}'";
+            }
+            if (!empty($fecha)){
+                $data[]="fecha_r = '{$fecha}'";
             }
             $anadir= implode(',',$data);
             $filtro=$pdo->prepare("SELECT r.*, mr.*, m.*, u.*, s.* FROM  tbl_reserva r
@@ -117,7 +120,7 @@ if ($_SESSION['email']=="") {
                             echo "<td class='gris'>{$row['fecha_r']}</td>";
                             for ($i = 1,$y=12,$z=14; $i <= 6; $i++,$y+=2,$z+=2) {
                                 if ($row['franja_horaria_r']==$i){
-                                    echo "<td class='gris'>{$y}-{$z}</td>";
+                                    echo "<td class='gris'>{$y}:00-{$z}:00</td>";
                                 }
                             }
                             echo "<td class='gris'>{$row['nombre_u']}</td>";
