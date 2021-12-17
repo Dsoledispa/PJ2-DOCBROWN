@@ -10,11 +10,11 @@ if ($_SESSION['email']=="") {
     $telefono_r=$_POST["telefono_r"];
     $fecha_r=$_POST["fecha_r"];
     $num_personas_r=$_POST["num_personas_r"];
-    $hora_inicio_r=$_POST["hora_inicio_r"];
+    $franja_horaria_r=$_POST["franja_horaria_r"];
     $id_s=$_POST["id_s"];
     $id_m=$_POST['id_m'];
-    $reserva=$pdo->prepare("INSERT INTO tbl_reserva (nombre_r, apellido_r, telefono_r, fecha_r, num_personas_r, hora_inicio_r, id_u) VALUES
-    ('{$nombre_r}', '{$apellido_r}', {$telefono_r}, '{$fecha_r}', {$num_personas_r}, '{$hora_inicio_r}', {$id_u});");
+    $reserva=$pdo->prepare("INSERT INTO tbl_reserva (nombre_r, apellido_r, telefono_r, fecha_r, num_personas_r, franja_horaria_r, id_u) VALUES
+    ('{$nombre_r}', '{$apellido_r}', {$telefono_r}, '{$fecha_r}', {$num_personas_r}, {$franja_horaria_r}, {$id_u});");
     $asignarmesa=$pdo->prepare("INSERT INTO `tbl_mesa/reserva` (id_mesa, id_reserva) VALUES (?, ?);");
     $disponibilidad=$pdo->prepare("UPDATE tbl_mesa SET disponibilidad_m = 'no' WHERE id_m = ?;");
     try {

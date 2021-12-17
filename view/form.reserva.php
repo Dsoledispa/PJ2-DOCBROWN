@@ -51,13 +51,6 @@ if ($_SESSION['email']=="") {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha_r">Fecha</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="date" min="<?php echo date("Y-m-d"); ?>" class="form-control" name="fecha_r"/>
-                            </div>
-                    </div>
-                    <div class="form-group">
                         <label for="num_personas_r">Num personas</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
@@ -65,10 +58,24 @@ if ($_SESSION['email']=="") {
                             </div>
                     </div>
                     <div class="form-group">
-                        <label for="hora_inicio_r">Hora</label>
+                        <label for="fecha_r">Fecha</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="time" min="12:00" max="24:00" class="form-control" name="hora_inicio_r"/>
+                                <input type="date" min="<?php echo date("Y-m-d"); ?>" class="form-control" name="fecha_r"/>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                    <label for="franja_horaria_r">Hora</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <select name="franja_horaria_r" class="form-control form-control-lg">
+                                    <option value="1">12:00-14:00</option>
+                                    <option value="2">14:00-16:00</option>
+                                    <option value="3">16:00-18:00</option>
+                                    <option value="4">18:00-20:00</option>
+                                    <option value="5">20:00-22:00</option>
+                                    <option value="6">22:00-24:00</option>
+                                </select>
                             </div>
                     </div>
                     <div class="form-group">
@@ -83,7 +90,7 @@ if ($_SESSION['email']=="") {
                                         $pdo->beginTransaction();
                                         $option->execute();
                                         foreach ($option as $row) {
-                                            echo "<option value='{$row['id_m']}'>{$row['id_m']} mesa de {$row['silla_m']} sillas</option>";
+                                            echo "<option value='{$row['id_m']}'>{$row['id_m']}: mesa de {$row['silla_m']} sillas</option>";
                                         }
                                         $pdo->commit();
                                     } catch (Exception $e) {

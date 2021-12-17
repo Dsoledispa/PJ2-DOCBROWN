@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-12-2021 a las 18:55:30
+-- Tiempo de generación: 17-12-2021 a las 18:01:29
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.24
 
@@ -67,7 +67,7 @@ INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 (24, 16, 'si', 3),
 (25, 18, 'si', 3),
 (26, 20, 'si', 3),
-(28, 8, 'no', 2);
+(28, 8, 'si', 2);
 
 -- --------------------------------------------------------
 
@@ -77,16 +77,16 @@ INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 
 CREATE TABLE `tbl_mesa/reserva` (
   `id_mesa/reserva` int(11) NOT NULL,
-  `id_m` int(11) DEFAULT NULL,
-  `id_r` int(11) DEFAULT NULL
+  `id_mesa` int(11) DEFAULT NULL,
+  `id_reserva` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_mesa/reserva`
 --
 
-INSERT INTO `tbl_mesa/reserva` (`id_mesa/reserva`, `id_m`, `id_r`) VALUES
-(1, 1, 1);
+INSERT INTO `tbl_mesa/reserva` (`id_mesa/reserva`, `id_mesa`, `id_reserva`) VALUES
+(14, 4, 16);
 
 -- --------------------------------------------------------
 
@@ -101,8 +101,9 @@ CREATE TABLE `tbl_reserva` (
   `telefono_r` int(9) DEFAULT NULL,
   `fecha_r` date DEFAULT NULL,
   `num_personas_r` int(11) DEFAULT NULL,
-  `hora_inicio_r` time DEFAULT NULL,
-  `hora_final_r` time DEFAULT NULL,
+  `franja_horaria_r` tinyint(4) DEFAULT NULL,
+  `hora_cierre_r` time DEFAULT NULL,
+  `activa_r` enum('si','no') NOT NULL,
   `id_u` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -110,8 +111,8 @@ CREATE TABLE `tbl_reserva` (
 -- Volcado de datos para la tabla `tbl_reserva`
 --
 
-INSERT INTO `tbl_reserva` (`id_r`, `nombre_r`, `apellido_r`, `telefono_r`, `fecha_r`, `num_personas_r`, `hora_inicio_r`, `hora_final_r`, `id_u`) VALUES
-(1, 'javier', 'soledispa', 657865324, '2021-12-21', 4, '12:00:00', NULL, 5);
+INSERT INTO `tbl_reserva` (`id_r`, `nombre_r`, `apellido_r`, `telefono_r`, `fecha_r`, `num_personas_r`, `franja_horaria_r`, `hora_cierre_r`, `activa_r`, `id_u`) VALUES
+(16, 'Erasmo', 'Soledispa', 697492531, '2021-12-18', 4, 3, NULL, 'si', 5);
 
 -- --------------------------------------------------------
 
@@ -188,8 +189,8 @@ ALTER TABLE `tbl_mesa`
 --
 ALTER TABLE `tbl_mesa/reserva`
   ADD PRIMARY KEY (`id_mesa/reserva`),
-  ADD KEY `fk_tbl_mesa/reserva_tbl_mesa_idx` (`id_m`),
-  ADD KEY `fk_tbl_mesa/reserva_tbl_reserva_idx` (`id_r`);
+  ADD KEY `fk_tbl_mesa/reserva_tbl_mesa_idx` (`id_mesa`),
+  ADD KEY `fk_tbl_mesa/reserva_tbl_reserva_idx` (`id_reserva`);
 
 --
 -- Indices de la tabla `tbl_reserva`
@@ -224,13 +225,13 @@ ALTER TABLE `tbl_mesa`
 -- AUTO_INCREMENT de la tabla `tbl_mesa/reserva`
 --
 ALTER TABLE `tbl_mesa/reserva`
-  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_reserva`
 --
 ALTER TABLE `tbl_reserva`
-  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_sala`
@@ -258,8 +259,8 @@ ALTER TABLE `tbl_mesa`
 -- Filtros para la tabla `tbl_mesa/reserva`
 --
 ALTER TABLE `tbl_mesa/reserva`
-  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_mesa` FOREIGN KEY (`id_m`) REFERENCES `tbl_mesa` (`id_m`),
-  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_reserva` FOREIGN KEY (`id_r`) REFERENCES `tbl_reserva` (`id_r`);
+  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `tbl_mesa` (`id_m`),
+  ADD CONSTRAINT `fk_tbl_mesa/reserva_tbl_reserva` FOREIGN KEY (`id_reserva`) REFERENCES `tbl_reserva` (`id_r`);
 
 --
 -- Filtros para la tabla `tbl_reserva`
