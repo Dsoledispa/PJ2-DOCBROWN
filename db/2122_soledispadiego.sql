@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2021 a las 18:01:29
+-- Tiempo de generación: 20-12-2021 a las 16:34:05
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.24
 
@@ -42,11 +42,11 @@ CREATE TABLE `tbl_mesa` (
 
 INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 (1, 4, 'si', 1),
-(2, 8, 'si', 2),
+(2, 8, 'no', 2),
 (3, 4, 'si', 3),
-(4, 4, 'si', 1),
+(4, 4, 'no', 1),
 (5, 4, 'si', 1),
-(6, 4, 'si', 1),
+(6, 4, 'no', 1),
 (7, 8, 'si', 1),
 (8, 10, 'si', 1),
 (9, 12, 'si', 1),
@@ -59,9 +59,9 @@ INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 (16, 10, 'si', 2),
 (17, 12, 'si', 2),
 (18, 4, 'si', 3),
-(19, 6, 'si', 3),
-(20, 6, 'si', 3),
-(21, 8, 'si', 3),
+(19, 6, 'no', 3),
+(20, 6, 'no', 3),
+(21, 8, 'no', 3),
 (22, 10, 'si', 3),
 (23, 12, 'si', 3),
 (24, 16, 'si', 3),
@@ -86,7 +86,15 @@ CREATE TABLE `tbl_mesa/reserva` (
 --
 
 INSERT INTO `tbl_mesa/reserva` (`id_mesa/reserva`, `id_mesa`, `id_reserva`) VALUES
-(14, 4, 16);
+(14, 4, 16),
+(15, 6, 17),
+(16, 14, 18),
+(17, 15, 18),
+(18, 2, 19),
+(19, 19, 20),
+(20, 20, 20),
+(21, 21, 21),
+(22, 22, 22);
 
 -- --------------------------------------------------------
 
@@ -112,7 +120,13 @@ CREATE TABLE `tbl_reserva` (
 --
 
 INSERT INTO `tbl_reserva` (`id_r`, `nombre_r`, `apellido_r`, `telefono_r`, `fecha_r`, `num_personas_r`, `franja_horaria_r`, `hora_cierre_r`, `activa_r`, `id_u`) VALUES
-(16, 'Erasmo', 'Soledispa', 697492531, '2021-12-18', 4, 3, NULL, 'si', 5);
+(16, 'Erasmo', 'Soledispa', 697492531, '2021-12-18', 4, 3, NULL, 'si', 5),
+(17, 'Moises', 'Soledispa', 678346754, '2021-12-23', 4, 5, NULL, 'si', 5),
+(18, 'Irina', 'Soledispa', 678456123, '2021-12-22', 10, 4, '15:53:22', 'no', 5),
+(19, 'Carlos', 'Parrales', 678456765, '2022-01-01', 7, 6, NULL, 'si', 5),
+(20, 'Miguel', 'Soledispa', 678456854, '2021-12-22', 11, 4, NULL, 'si', 5),
+(21, 'Josep', 'Parrales', 765876543, '2021-12-23', 8, 6, NULL, 'si', 5),
+(22, 'Algo', 'Sa', 786546753, '2021-12-23', 8, 6, '15:12:48', 'no', 5);
 
 -- --------------------------------------------------------
 
@@ -209,7 +223,8 @@ ALTER TABLE `tbl_sala`
 -- Indices de la tabla `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
-  ADD PRIMARY KEY (`id_u`);
+  ADD PRIMARY KEY (`id_u`),
+  ADD UNIQUE KEY `correo_u` (`correo_u`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -225,13 +240,13 @@ ALTER TABLE `tbl_mesa`
 -- AUTO_INCREMENT de la tabla `tbl_mesa/reserva`
 --
 ALTER TABLE `tbl_mesa/reserva`
-  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_reserva`
 --
 ALTER TABLE `tbl_reserva`
-  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_sala`
