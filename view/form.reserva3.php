@@ -31,12 +31,12 @@ if ($_SESSION['email']=="") {
 			<div class="main-center">
 			<h5>Introduce tus datos para inscribirte en el evento</h5>
             <?php echo "<h5>Numero de personas: {$_SESSION['sesionform1']['num_personas_r']}</h5>"?>
-                <form action="../proceses/agregarreserva.php" method="post">
+                <form action="../proceses/agregarreserva.php" method="post" id="form3">
                     <div class="form-group">
                     <label for="id_m">Seleccionar mesas</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <select multiple name="id_m[]" class="form-control form-control-lg">
+                                <select multiple name="id_m[]" id="id_m" class="form-control form-control-lg">
                                 <?php
                                     // Mostrar todas las localizaciones que existen
                                     $option=$pdo->prepare("SELECT * FROM tbl_mesa WHERE id_s='{$_SESSION['id_s']}' AND disponibilidad_m='si'");

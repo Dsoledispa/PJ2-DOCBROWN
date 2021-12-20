@@ -24,10 +24,15 @@ if ($_SESSION['email']=="") {
         <div class="row padding-top padding-lat">
             <div class="fondo">
             <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
-            <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
+            <?php
+            if (!isset($_SESSION['tipo_u']) || $_SESSION['tipo_u']=="") {
+            }else {
+                echo "<button type='submit'><a type='button' href='zona.usuarios.php'>Usuarios</a></button>";
+            }
+            ?>
             <button type="submit"><a type='button' href='zona.recursos.php'>Recursos</a></button>
             <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
-                <form action="zona.reserva.php" method="post">
+                <form action="zona.historial.php" method="post">
                     <div class="column-2">
                         <label for="sala">Salas</label><br>   
                         <select name="sala" class="casilla">
@@ -62,7 +67,7 @@ if ($_SESSION['email']=="") {
                         <input type="date" min="<?php echo date("Y-m-d"); ?>" name="fecha" class="casilla">
                     </div>
                     <div class="column-1">
-                        <br><br><input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
+                        <input type="submit" value="FILTRAR" name="filtrar" class="filtrar">
                     </div>
                 </form>
             </div>
@@ -88,59 +93,65 @@ if ($_SESSION['email']=="") {
                 $data[]="fecha_r = '{$fecha}'";
             }
             $anadir= implode(' AND ',$data);
-            $filtro=$pdo->prepare("SELECT r.*, mr.*, m.*, u.*, s.* FROM  tbl_reserva r
-            LEFT JOIN `tbl_mesa/reserva` mr on r.id_r=mr.id_reserva
-            LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
-            LEFT JOIN tbl_usuario u on r.id_u=u.id_u
-            LEFT JOIN tbl_sala s on m.id_s=s.id_s
-            WHERE {$anadir}
-            ORDER BY fecha_r DESC , franja_horaria_r DESC");
-                    try{
-                        $pdo->beginTransaction();
-                        $filtro->execute();
-                        if (empty($filtrar)) {
-                            echo "<div>";
-                            echo "<h1>No se han encontrado elementos....</h1>";
-                            echo "</div>";
-                        }else {
-                            echo  "<div class='row padding-top-less padding-lat'>";
-                            echo  "<table>";
-                            echo  "<tr>";
-                            echo  "<th class='blue'>Nº Reserva</th>";
-                            echo  "<th class='blue'>Sala</th>";
-                            echo  "<th class='blue'>Nombre</th>";
-                            echo  "<th class='blue'>Apellido</th>";
-                            echo  "<th class='blue'>Telefono</th>";
-                            echo  "<th class='blue'>Num Personas</th>";
-                            echo  "<th class='blue'>Fecha</th>";
-                            echo  "<th class='blue'>Franja Horaria</th>";
-                            echo  "<th class='blue'>Camarero</th>";
-                            echo  "</tr>";   
-                            foreach ($filtro as $row) {
-                                echo  "<tr>";
-                                echo "<td class='gris'>{$row['id_r']}</td>";
-                                echo "<td class='gris'>{$row['nombre_s']}</td>";
-                                echo "<td class='gris'>{$row['nombre_r']}</td>";
-                                echo "<td class='gris'>{$row['apellido_r']}</td>";
-                                echo "<td class='gris'>{$row['telefono_r']}</td>";
-                                echo "<td class='gris'>{$row['num_personas_r']}</td>";
-                                echo "<td class='gris'>{$row['fecha_r']}</td>";
-                                for ($i = 1,$y=12,$z=14; $i <= 6; $i++,$y+=2,$z+=2) {
-                                    if ($row['franja_horaria_r']==$i){
-                                        echo "<td class='gris'>{$y}:00-{$z}:00</td>";
-                                    }
-                                }
-                                echo "<td class='gris'>{$row['nombre_u']}</td>";
-                                echo  "</tr>";
-                            }
-                            echo "</table>";
-                            echo "</div>";
-                            $pdo->commit();
+            if (!empty($data)){
+                $filtro=$pdo->prepare("SELECT r.*, mr.*, m.*, u.*, s.* FROM  tbl_reserva r
+                LEFT JOIN `tbl_mesa/reserva` mr on r.id_r=mr.id_reserva
+                LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
+                LEFT JOIN tbl_usuario u on r.id_u=u.id_u
+                LEFT JOIN tbl_sala s on m.id_s=s.id_s
+                WHERE r.activa_r='no' and {$anadir}
+                ORDER BY fecha_r DESC , franja_horaria_r DESC");
+            }else{
+                $filtro=$pdo->prepare("SELECT r.*, mr.*, m.*, u.*, s.* FROM  tbl_reserva r
+                LEFT JOIN `tbl_mesa/reserva` mr on r.id_r=mr.id_reserva
+                LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
+                LEFT JOIN tbl_usuario u on r.id_u=u.id_u
+                LEFT JOIN tbl_sala s on m.id_s=s.id_s
+                WHERE r.activa_r='no'
+                ORDER BY fecha_r DESC , franja_horaria_r DESC");
+            }
+            try{
+                $pdo->beginTransaction();
+                $filtro->execute();
+                echo  "<div class='row padding-top-less padding-lat'>";
+                echo  "<table>";
+                echo  "<tr>";
+                echo  "<th class='blue'>Nº Reserva</th>";
+                echo  "<th class='blue'>Sala</th>";
+                echo  "<th class='blue'>Nombre</th>";
+                echo  "<th class='blue'>Apellido</th>";
+                echo  "<th class='blue'>Telefono</th>";
+                echo  "<th class='blue'>Num Personas</th>";
+                echo  "<th class='blue'>Fecha</th>";
+                echo  "<th class='blue'>Franja Horaria</th>";
+                echo  "<th class='blue'>Cierre reserva</th>";
+                echo  "<th class='blue'>Camarero</th>";
+                echo  "</tr>";   
+                foreach ($filtro as $row) {
+                    echo  "<tr>";
+                    echo "<td class='gris'>{$row['id_r']}</td>";
+                    echo "<td class='gris'>{$row['nombre_s']}</td>";
+                    echo "<td class='gris'>{$row['nombre_r']}</td>";
+                    echo "<td class='gris'>{$row['apellido_r']}</td>";
+                    echo "<td class='gris'>{$row['telefono_r']}</td>";
+                    echo "<td class='gris'>{$row['num_personas_r']}</td>";
+                    echo "<td class='gris'>{$row['fecha_r']}</td>";
+                    for ($i = 1,$y=12,$z=14; $i <= 6; $i++,$y+=2,$z+=2) {
+                        if ($row['franja_horaria_r']==$i){
+                            echo "<td class='gris'>{$y}:00-{$z}:00</td>";
                         }
-                    } catch (Exception $e) {
-                        $pdo->rollBack();
-                        echo "Fallo: " . $e->getMessage();
                     }
+                    echo "<td class='gris'>{$row['hora_cierre_r']}</td>";
+                    echo "<td class='gris'>{$row['nombre_u']}</td>";
+                    echo  "</tr>";
+                }
+                echo "</table>";
+                echo "</div>";
+                $pdo->commit();
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                echo "Fallo: " . $e->getMessage();
+            }
         }else {
             //Sin filtro
             $historial=$pdo->prepare("SELECT distinct r.*, m.*, u.*, s.* FROM  tbl_reserva r
@@ -164,6 +175,7 @@ if ($_SESSION['email']=="") {
                         echo  "<th class='blue'>Num Personas</th>";
                         echo  "<th class='blue'>Fecha</th>";
                         echo  "<th class='blue'>Franja Horaria</th>";
+                        echo  "<th class='blue'>Cierre reserva</th>";
                         echo  "<th class='blue'>Camarero</th>";
                         echo  "</tr>";   
                         foreach ($historial as $row) {
@@ -180,6 +192,7 @@ if ($_SESSION['email']=="") {
                                     echo "<td class='gris'>{$y}:00-{$z}:00</td>";
                                 }
                             }
+                            echo "<td class='gris'>{$row['hora_cierre_r']}</td>";
                             echo "<td class='gris'>{$row['nombre_u']}</td>";
                             echo  "</tr>";
                         }

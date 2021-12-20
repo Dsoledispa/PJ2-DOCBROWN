@@ -28,7 +28,12 @@ if ($_SESSION['email']=="") {
             <div class="fondo">
             <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
             <button type="submit"><a type='button' href='zona.reserva.php'>Reservas</a></button>
-            <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
+            <?php
+            if (!isset($_SESSION['tipo_u']) || $_SESSION['tipo_u']=="") {
+            }else {
+                echo "<button type='submit'><a type='button' href='zona.usuarios.php'>Usuarios</a></button>";
+            }
+            ?>
             <button type="submit"><a type='button' href='zona.historial.php'>Historial Reservas</a></button>
             <button type="submit"><a type='button' href='form.recursos.php'>Crear mesas</a></button>
                 <form action="zona.recursos.php" method="post">
@@ -88,48 +93,51 @@ if ($_SESSION['email']=="") {
             $data[]="disponibilidad_m = '{$disponibilidad_m}'";
         }
         $anadir= implode(' AND ',$data);
-        $recursos=$pdo->prepare("SELECT m.*, s.*,r.activa_r FROM tbl_mesa m
-        LEFT JOIN tbl_sala s on m.id_s=s.id_s
-        LEFT JOIN `tbl_mesa/reserva` mr on m.id_m=mr.id_mesa
-        LEFT JOIN tbl_reserva r on mr.id_reserva=r.id_r
-        WHERE {$anadir};");
+        if (!empty($data)){
+            $recursos=$pdo->prepare("SELECT m.*, s.*,r.activa_r FROM tbl_mesa m
+            LEFT JOIN tbl_sala s on m.id_s=s.id_s
+            LEFT JOIN `tbl_mesa/reserva` mr on m.id_m=mr.id_mesa
+            LEFT JOIN tbl_reserva r on mr.id_reserva=r.id_r
+            WHERE {$anadir};");
+        }else{
+            $recursos=$pdo->prepare("SELECT m.*, s.*,r.activa_r FROM tbl_mesa m
+            LEFT JOIN tbl_sala s on m.id_s=s.id_s
+            LEFT JOIN `tbl_mesa/reserva` mr on m.id_m=mr.id_mesa
+            LEFT JOIN tbl_reserva r on mr.id_reserva=r.id_r;");
+        }
         try{
             $pdo->beginTransaction();
             $recursos->execute();
-            if (empty($filtrar)) {
-                echo "<div>";
-                echo "<h1>No se han encontrado elementos....</h1>";
-                echo "</div>";
-            }else {
-                echo  "<div>";
-                echo  "<table>";
+            echo  "<div>";
+            echo  "<table>";
+            echo  "<tr>";
+            echo  "<th class='blue'>Sala</th>";
+            echo  "<th class='blue'>ID mesa</th>";
+            echo  "<th class='blue'>Numero sillas</th>";
+            echo  "<th class='blue'>Disponibilidad</th>";
+            echo  "</tr>";
+            foreach ($recursos as $recurso) {
+                //Ponemos primero la localización
                 echo  "<tr>";
-                echo  "<th class='blue'>Sala</th>";
-                echo  "<th class='blue'>ID mesa</th>";
-                echo  "<th class='blue'>Numero sillas</th>";
-                echo  "<th class='blue'>Disponibilidad</th>";
-                echo  "</tr>";
-                foreach ($recursos as $recurso) {
-                    //Ponemos primero la localización
-                    echo  "<tr>";
-                        echo "<td class='gris'>{$recurso['nombre_s']}</td>";
-                        echo "<td class='gris'>{$recurso['id_m']}</td>";
-                        echo "<td class='gris'>{$recurso['silla_m']}</td>";
-                        if ($recurso['disponibilidad_m']=="si") {
-                            echo "<td class='gris'><i class='fas fa-check green'></i></td>";
-                        }else{
-                            echo "<td class='gris'><i class='fas fa-times red'></i></td>";
-                        }
-                        if ($recurso['activa_r']=="no" || $recurso['activa_r']==null) {
-                            echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
-                            echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
-                        }
-                    echo "</tr>";
-                }
-                echo "</table>";
-                echo "</div>";
-                $pdo->commit();
+                    echo "<td class='gris'>{$recurso['nombre_s']}</td>";
+                    echo "<td class='gris'>{$recurso['id_m']}</td>";
+                    echo "<td class='gris'>{$recurso['silla_m']}</td>";
+                    if ($recurso['disponibilidad_m']=="si") {
+                        echo "<td class='gris'><i class='fas fa-check green'></i></td>";
+                    }else{
+                        echo "<td class='gris'><i class='fas fa-times red'></i></td>";
+                    }
+                    if ($recurso['activa_r']=="no" || $recurso['activa_r']==null) {
+                        echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
+                        echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
+                    }else{
+                        echo "<td><button type='submit' class='red'>Hay una reserva activa</button></td>";
+                    }
+                echo "</tr>";
             }
+            echo "</table>";
+            echo "</div>";
+            $pdo->commit();
         } catch (Exception $e) {
             $pdo->rollBack();
             echo "Fallo: " . $e->getMessage();
@@ -165,6 +173,8 @@ if ($_SESSION['email']=="") {
                     if ($recurso['activa_r']=="no" || $recurso['activa_r']==null) {
                         echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
                         echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
+                    }else{
+                        echo "<td><button type='submit' class='red'>Hay una reserva activa</button></td>";
                     }
                 echo "</tr>";
             }
