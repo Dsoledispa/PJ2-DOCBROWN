@@ -72,6 +72,7 @@ if ($_SESSION['email']=="") {
             </div>
         </div><br>
     <?php
+    //Con filtro
     if (isset($_POST['filtrar'])) {
         $nombre_s=$_POST['sala'];
         $silla_m=$_POST['numsilla'];
@@ -86,7 +87,7 @@ if ($_SESSION['email']=="") {
         if (!empty($disponibilidad_m)){
             $data[]="disponibilidad_m = '{$disponibilidad_m}'";
         }
-        $anadir= implode(',',$data);
+        $anadir= implode(' AND ',$data);
         $recursos=$pdo->prepare("SELECT m.*, s.*,r.activa_r FROM tbl_mesa m
         LEFT JOIN tbl_sala s on m.id_s=s.id_s
         LEFT JOIN `tbl_mesa/reserva` mr on m.id_m=mr.id_mesa
@@ -95,39 +96,46 @@ if ($_SESSION['email']=="") {
         try{
             $pdo->beginTransaction();
             $recursos->execute();
-            echo  "<div>";
-            echo  "<table>";
-            echo  "<tr>";
-            echo  "<th class='blue'>Sala</th>";
-            echo  "<th class='blue'>ID mesa</th>";
-            echo  "<th class='blue'>Numero sillas</th>";
-            echo  "<th class='blue'>Disponibilidad</th>";
-            echo  "</tr>";
-            foreach ($recursos as $recurso) {
-                //Ponemos primero la localización
+            if (empty($filtrar)) {
+                echo "<div>";
+                echo "<h1>No se han encontrado elementos....</h1>";
+                echo "</div>";
+            }else {
+                echo  "<div>";
+                echo  "<table>";
                 echo  "<tr>";
-                    echo "<td class='gris'>{$recurso['nombre_s']}</td>";
-                    echo "<td class='gris'>{$recurso['id_m']}</td>";
-                    echo "<td class='gris'>{$recurso['silla_m']}</td>";
-                    if ($recurso['disponibilidad_m']=="si") {
-                        echo "<td class='gris'><i class='fas fa-check green'></i></td>";
-                    }else{
-                        echo "<td class='gris'><i class='fas fa-times red'></i></td>";
-                    }
-                    if ($recurso['activa_r']=="no" || $recurso['activa_r']==null) {
-                        echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
-                        echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
-                    }
-                echo "</tr>";
+                echo  "<th class='blue'>Sala</th>";
+                echo  "<th class='blue'>ID mesa</th>";
+                echo  "<th class='blue'>Numero sillas</th>";
+                echo  "<th class='blue'>Disponibilidad</th>";
+                echo  "</tr>";
+                foreach ($recursos as $recurso) {
+                    //Ponemos primero la localización
+                    echo  "<tr>";
+                        echo "<td class='gris'>{$recurso['nombre_s']}</td>";
+                        echo "<td class='gris'>{$recurso['id_m']}</td>";
+                        echo "<td class='gris'>{$recurso['silla_m']}</td>";
+                        if ($recurso['disponibilidad_m']=="si") {
+                            echo "<td class='gris'><i class='fas fa-check green'></i></td>";
+                        }else{
+                            echo "<td class='gris'><i class='fas fa-times red'></i></td>";
+                        }
+                        if ($recurso['activa_r']=="no" || $recurso['activa_r']==null) {
+                            echo "<td><button type='submit'><a type='button' href='mod.recursos.php?id_m={$recurso['id_m']}'>Modificar recurso</a></button></td>";
+                            echo "<td><button type='submit'><a type='button' href='../proceses/eliminarrecurso.php?id_m={$recurso['id_m']}'>Eliminar recurso</a></button></td>";
+                        }
+                    echo "</tr>";
+                }
+                echo "</table>";
+                echo "</div>";
+                $pdo->commit();
             }
-            echo "</table>";
-            echo "</div>";
-            $pdo->commit();
         } catch (Exception $e) {
             $pdo->rollBack();
             echo "Fallo: " . $e->getMessage();
         }
     }else{
+        //Sin filtro
         $recursos=$pdo->prepare("SELECT m.*, s.*,r.activa_r FROM tbl_mesa m
         LEFT JOIN tbl_sala s on m.id_s=s.id_s
         LEFT JOIN `tbl_mesa/reserva` mr on m.id_m=mr.id_mesa

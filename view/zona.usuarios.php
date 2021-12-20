@@ -63,6 +63,7 @@ if ($_SESSION['email']=="") {
             </div>
         </div><br>
     <?php
+    //Con filtro
     if (isset($_POST['filtrar'])) {
         $nombre_u=$_POST['nombre'];
         $apellido_u=$_POST['apellido'];
@@ -81,44 +82,51 @@ if ($_SESSION['email']=="") {
         if (!empty($disponibilidad_u)){
             $data[]="disponibilidad_u = '{$disponibilidad_u}'";
         }
-        $anadir= implode(',',$data);
+        $anadir= implode(' AND ',$data);
         $usuarios=$pdo->prepare("SELECT * FROM tbl_usuario WHERE {$anadir}");
         try{
             $pdo->beginTransaction();
             $usuarios->execute();
-            echo  "<div>";
-            echo  "<table>";
-            echo  "<tr>";
-            echo  "<th class='blue'>Nombre</th>";
-            echo  "<th class='blue'>Apellido</th>";
-            echo  "<th class='blue'>Correo</th>";
-            echo  "<th class='blue'>Tipo</th>";
-            echo  "<th class='blue'>Disponibilidad</th>";
-            echo  "</tr>";
-            foreach ($usuarios as $usuario) {
-                //Ponemos primero la localización
+            if (empty($filtrar)) {
+                echo "<div>";
+                echo "<h1>No se han encontrado elementos....</h1>";
+                echo "</div>";
+            }else {
+                echo  "<div>";
+                echo  "<table>";
                 echo  "<tr>";
-                    echo "<td class='gris'>{$usuario['nombre_u']}</td>";
-                    echo "<td class='gris'>{$usuario['apellido_u']}</td>";
-                    echo "<td class='gris'>{$usuario['correo_u']}</td>";
-                    echo "<td class='gris'>{$usuario['tipo_u']}</td>";
-                    if ($usuario['disponibilidad_u']=="si") {
-                        echo "<td class='gris'><i class='fas fa-check green'></i></td>";
-                    }else{
-                        echo "<td class='gris'><i class='fas fa-times red'></i></td>";
-                    }
-                    echo "<td><button type='submit'><a type='button' href='mod.usuarios.php?id_u={$usuario['id_u']}'>Modificar usuario</a></button></td>";
-                    echo "<td><button type='submit'><a type='button' href='../proceses/eliminarusuario.php?id_u={$usuario['id_u']}'>Eliminar usuario</a></button></td>";
-                echo "</tr>";
+                echo  "<th class='blue'>Nombre</th>";
+                echo  "<th class='blue'>Apellido</th>";
+                echo  "<th class='blue'>Correo</th>";
+                echo  "<th class='blue'>Tipo</th>";
+                echo  "<th class='blue'>Disponibilidad</th>";
+                echo  "</tr>";
+                foreach ($usuarios as $usuario) {
+                    //Ponemos primero la localización
+                    echo  "<tr>";
+                        echo "<td class='gris'>{$usuario['nombre_u']}</td>";
+                        echo "<td class='gris'>{$usuario['apellido_u']}</td>";
+                        echo "<td class='gris'>{$usuario['correo_u']}</td>";
+                        echo "<td class='gris'>{$usuario['tipo_u']}</td>";
+                        if ($usuario['disponibilidad_u']=="si") {
+                            echo "<td class='gris'><i class='fas fa-check green'></i></td>";
+                        }else{
+                            echo "<td class='gris'><i class='fas fa-times red'></i></td>";
+                        }
+                        echo "<td><button type='submit'><a type='button' href='mod.usuarios.php?id_u={$usuario['id_u']}'>Modificar usuario</a></button></td>";
+                        echo "<td><button type='submit'><a type='button' href='../proceses/eliminarusuario.php?id_u={$usuario['id_u']}'>Eliminar usuario</a></button></td>";
+                    echo "</tr>";
+                }
+                echo "</table>";
+                echo "</div>";
+                $pdo->commit();
             }
-            echo "</table>";
-            echo "</div>";
-            $pdo->commit();
         } catch (Exception $e) {
             $pdo->rollBack();
             echo "Fallo: " . $e->getMessage();
         }
     }else{
+        //Sin filtro
         $usuarios=$pdo->prepare("SELECT * FROM tbl_usuario");
         try{
             $pdo->beginTransaction();
