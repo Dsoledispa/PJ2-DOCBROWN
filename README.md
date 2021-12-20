@@ -36,7 +36,7 @@ try{
 }
 ```
 
-Ahora, dentro de las lineas que empieza con define, substituimos los datos de "conexion", "usuario", "contraseña" y "nombre base de datos" por los propios. Si la base de datos esta instalada en el mismo equipo en donde esta el proyecto, la "conexion" sera "localhost", el "usuario" sera "root", no tendra "contraseña" y la base de datos sera "db_docbrown".
+Ahora, dentro de las lineas que empieza con define, substituimos los datos de "conexion", "usuario", "contraseña" y "nombre base de datos" por los propios. Si la base de datos esta instalada en el mismo equipo en donde esta el proyecto, la "conexion" sera "localhost", el "usuario" sera "root", no tendra "contraseña" y la base de datos sera "2122_diegosoledispa".
 
 El proyecto ya esta listo. Se accede desde la barra de direccion web escribiendo lo siguiente (localhost/www/DOC-BROWN21) donde accederemos al login del programa. Usaremos los usuarios que estan en la base de datos (concretamente dentro de tbl_usuario).
 Se recomienta tener acceso a internet en todo momento para poder visualizar correctamente el proyecto.
@@ -65,7 +65,7 @@ Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](ht
 
 ## Versionado 📌
 
-Para todas las versiones disponibles, mira la siguiente pagina(https://github.com/Dsoledispa/DOC-BROWN21/tags).
+Para todas las versiones disponibles, mira la siguiente pagina(https://github.com/Dsoledispa/PJ2-DOCBROWN/tags).
 
 ## Autores ✒️
 
@@ -75,7 +75,7 @@ _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios
 * **Diego Soledispa** - [Diego Soledispa](https://github.com/Dsoledispa)
 
 
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/Dsoledispa/DOC-BROWN21/contributors) quíenes han participado en este proyecto. 
+También puedes mirar la lista de todos los [contribuyentes](https://github.com/Dsoledispa/PJ2-DOCBROWN21/contributors) quíenes han participado en este proyecto. 
 ## Licencia 📄
 
 Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
