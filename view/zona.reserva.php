@@ -26,8 +26,9 @@ if ($_SESSION['email']=="") {
             <button type="submit"><a type='button' href='zona.sala.php'>Volver a salas</a></button>
             <button type="submit"><a type='button' href='zona.usuarios.php'>Usuarios</a></button>
             <button type="submit"><a type='button' href='zona.recursos.php'>Recursos</a></button>
+            <button type="submit"><a type='button' href='zona.historial.php'>Historial Reservas</a></button>
                 <form action="zona.reserva.php" method="post">
-                    <div class="column-4">
+                    <div class="column-2">
                         <label for="sala">Salas</label><br>   
                         <select name="sala" class="casilla">
                         <option value="" default>Todas las salas</option>
@@ -48,15 +49,15 @@ if ($_SESSION['email']=="") {
                                 ?>
                         </select>
                     </div>
-                    <div class="column-4">
+                    <div class="column-2">
                         <label for="numpersonas">Numero personas</label><br>
                         <input type="number" name="numpersonas" class="casilla">
                     </div>
-                    <div class="column-4">
+                    <div class="column-2">
                         <label for="camarero">Camarero</label><br>
                         <input type="text" name="camarero" class="casilla">
                     </div>
-                    <div class="column-4">
+                    <div class="column-2">
                         <label for="fecha">Fecha</label><br>
                         <input type="date" min="<?php echo date("Y-m-d"); ?>" name="fecha" class="casilla">
                     </div>
@@ -91,7 +92,7 @@ if ($_SESSION['email']=="") {
             LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
             LEFT JOIN tbl_usuario u on r.id_u=u.id_u
             LEFT JOIN tbl_sala s on m.id_s=s.id_s
-            WHERE {$anadir}
+            WHERE r.activa_r='si' and {$anadir}
             ORDER BY fecha_r DESC , franja_horaria_r DESC");
                     try{
                         $pdo->beginTransaction();
@@ -135,7 +136,7 @@ if ($_SESSION['email']=="") {
                         echo "Fallo: " . $e->getMessage();
                     }
         }else {
-            $historial=$pdo->prepare("SELECT r.*, mr.*, m.*, u.*, s.* FROM  tbl_reserva r
+            $historial=$pdo->prepare("SELECT distinct r.*, m.*, u.*, s.* FROM  tbl_reserva r
             LEFT JOIN `tbl_mesa/reserva` mr on r.id_r=mr.id_reserva
             LEFT JOIN tbl_mesa m on mr.id_mesa=m.id_m
             LEFT JOIN tbl_usuario u on r.id_u=u.id_u
