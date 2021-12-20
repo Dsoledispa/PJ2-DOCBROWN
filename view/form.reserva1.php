@@ -51,7 +51,7 @@ if ($_SESSION['email']=="") {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="num_personas_r">Num personas</label>
+                        <label for="num_personas_r">Num personas MAX(20)</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                 <input type="number" class="form-control" name="num_personas_r" id="num_personas_r"/>

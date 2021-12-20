@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 20-12-2021 a las 16:34:05
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.4.24
+-- Servidor: localhost:3306
+-- Tiempo de generación: 20-12-2021 a las 19:40:16
+-- Versión del servidor: 10.5.12-MariaDB
+-- Versión de PHP: 7.3.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `2122_soledispadiego`
+-- Base de datos: `id18155242_2122_soledispadiego`
 --
-CREATE DATABASE IF NOT EXISTS `2122_soledispadiego` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `2122_soledispadiego`;
+CREATE DATABASE IF NOT EXISTS `id18155242_2122_soledispadiego` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `id18155242_2122_soledispadiego`;
 
 -- --------------------------------------------------------
 
@@ -42,11 +43,11 @@ CREATE TABLE `tbl_mesa` (
 
 INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 (1, 4, 'si', 1),
-(2, 8, 'no', 2),
+(2, 8, 'si', 2),
 (3, 4, 'si', 3),
-(4, 4, 'no', 1),
+(4, 4, 'si', 1),
 (5, 4, 'si', 1),
-(6, 4, 'no', 1),
+(6, 4, 'si', 1),
 (7, 8, 'si', 1),
 (8, 10, 'si', 1),
 (9, 12, 'si', 1),
@@ -54,20 +55,23 @@ INSERT INTO `tbl_mesa` (`id_m`, `silla_m`, `disponibilidad_m`, `id_s`) VALUES
 (11, 18, 'si', 1),
 (12, 4, 'si', 1),
 (13, 2, 'si', 2),
-(14, 4, 'si', 2),
-(15, 6, 'si', 2),
-(16, 10, 'si', 2),
+(14, 4, 'no', 2),
+(15, 6, 'no', 2),
+(16, 10, 'no', 2),
 (17, 12, 'si', 2),
 (18, 4, 'si', 3),
-(19, 6, 'no', 3),
-(20, 6, 'no', 3),
-(21, 8, 'no', 3),
-(22, 10, 'si', 3),
+(19, 6, 'si', 3),
+(20, 6, 'si', 3),
+(21, 8, 'si', 3),
+(22, 10, 'no', 3),
 (23, 12, 'si', 3),
 (24, 16, 'si', 3),
 (25, 18, 'si', 3),
 (26, 20, 'si', 3),
-(28, 8, 'si', 2);
+(28, 8, 'si', 2),
+(30, 6, 'si', 1),
+(31, 10, 'si', 2),
+(32, 12, 'si', 3);
 
 -- --------------------------------------------------------
 
@@ -86,15 +90,13 @@ CREATE TABLE `tbl_mesa/reserva` (
 --
 
 INSERT INTO `tbl_mesa/reserva` (`id_mesa/reserva`, `id_mesa`, `id_reserva`) VALUES
-(14, 4, 16),
-(15, 6, 17),
-(16, 14, 18),
-(17, 15, 18),
-(18, 2, 19),
-(19, 19, 20),
-(20, 20, 20),
-(21, 21, 21),
-(22, 22, 22);
+(24, 4, 24),
+(25, 16, 25),
+(26, 21, 26),
+(27, 15, 27),
+(28, 22, 28),
+(29, 14, 29),
+(30, 16, 29);
 
 -- --------------------------------------------------------
 
@@ -120,13 +122,12 @@ CREATE TABLE `tbl_reserva` (
 --
 
 INSERT INTO `tbl_reserva` (`id_r`, `nombre_r`, `apellido_r`, `telefono_r`, `fecha_r`, `num_personas_r`, `franja_horaria_r`, `hora_cierre_r`, `activa_r`, `id_u`) VALUES
-(16, 'Erasmo', 'Soledispa', 697492531, '2021-12-18', 4, 3, NULL, 'si', 5),
-(17, 'Moises', 'Soledispa', 678346754, '2021-12-23', 4, 5, NULL, 'si', 5),
-(18, 'Irina', 'Soledispa', 678456123, '2021-12-22', 10, 4, '15:53:22', 'no', 5),
-(19, 'Carlos', 'Parrales', 678456765, '2022-01-01', 7, 6, NULL, 'si', 5),
-(20, 'Miguel', 'Soledispa', 678456854, '2021-12-22', 11, 4, NULL, 'si', 5),
-(21, 'Josep', 'Parrales', 765876543, '2021-12-23', 8, 6, NULL, 'si', 5),
-(22, 'Algo', 'Sa', 786546753, '2021-12-23', 8, 6, '15:12:48', 'no', 5);
+(24, 'Alex', 'Salas', 678456234, '2021-12-23', 4, 4, '19:23:19', 'no', 5),
+(25, 'Carlos', 'Piedras', 678345754, '2021-12-22', 10, 5, '19:24:41', 'no', 5),
+(26, 'Sara', 'Connor', 678234768, '2021-12-26', 8, 6, '19:27:34', 'no', 5),
+(27, 'Amancio', 'Ortega', 678476234, '2021-12-28', 6, 1, NULL, 'si', 17),
+(28, 'Antonio', 'Manolete', 679823445, '2022-01-07', 10, 3, NULL, 'si', 17),
+(29, 'Pol', 'Garcia', 677853667, '2021-12-21', 12, 1, NULL, 'si', 5);
 
 -- --------------------------------------------------------
 
@@ -180,12 +181,13 @@ INSERT INTO `tbl_usuario` (`id_u`, `nombre_u`, `apellido_u`, `correo_u`, `contra
 (6, 'Ignasi', 'Romero', 'ignasiromero@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
 (7, 'Javier', 'Soledispa', 'javiersoledispa@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
 (8, 'Josep', 'Marti', 'josepmarti@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
-(9, 'Miquel', 'Andreu', 'miquelandreu@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(9, 'Miquel', 'Andreu', 'miquelandreu@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'no'),
 (10, 'Sergio', 'Jimenez', 'sergiojimenez@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
 (11, 'Sergio23', 'Sergio23', 'sergio23@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
 (12, 'Xavi', 'Gomez', 'xaviergomez@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
-(13, 'Pedro', 'Garcia', 'pedrogarcia@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si'),
-(15, 'Moises', 'Soledispa', 'moisessoledispa@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'no');
+(13, 'Pedro', 'Garcia', 'pedrogarcia@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'no'),
+(16, 'admin', 'admin', 'admin@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'administrador', 'si'),
+(17, 'camarero', 'camarero', 'camarero@docbrown.com', '81dc9bdb52d04dc20036dbd8313ed055', 'camarero', 'si');
 
 --
 -- Índices para tablas volcadas
@@ -234,19 +236,19 @@ ALTER TABLE `tbl_usuario`
 -- AUTO_INCREMENT de la tabla `tbl_mesa`
 --
 ALTER TABLE `tbl_mesa`
-  MODIFY `id_m` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_m` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_mesa/reserva`
 --
 ALTER TABLE `tbl_mesa/reserva`
-  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_mesa/reserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_reserva`
 --
 ALTER TABLE `tbl_reserva`
-  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_sala`
@@ -258,7 +260,7 @@ ALTER TABLE `tbl_sala`
 -- AUTO_INCREMENT de la tabla `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
-  MODIFY `id_u` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_u` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas

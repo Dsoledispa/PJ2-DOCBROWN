@@ -14,8 +14,6 @@ if ($_SESSION['email']=="") {
         $desactivarreserva->execute();
         $idmesas->execute();
         foreach ($idmesas as $id_mesa) {
-            echo $id_mesa;
-            echo "<br>";
             $disponibilidad->bindParam(1, $id_mesa['id_mesa']);
             $disponibilidad->execute();
         }
