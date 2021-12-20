@@ -30,18 +30,17 @@ if ($_SESSION['email']=="") {
 		<div class="main">
 			<div class="main-center">
 			<h5>Introduce tus datos para inscribirte en el evento</h5>
-                <form action="form.reserva3.php" method="post">
+                <form action="form.reserva3.php" method="post" id="form2">
                     <div class="form-group">
                     <label for="franja_horaria_r">Hora</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <select name="franja_horaria_r" class="form-control form-control-lg">
-                                    <option value="1">12:00-14:00</option>
-                                    <option value="2">14:00-16:00</option>
-                                    <option value="3">16:00-18:00</option>
-                                    <option value="4">18:00-20:00</option>
-                                    <option value="5">20:00-22:00</option>
-                                    <option value="6">22:00-24:00</option>
+                                <select name="franja_horaria_r" id="franja_horaria_r" class="form-control form-control-lg">
+                                    <?php
+                                        for ($i = 1,$y=12,$z=14; $i <= 6; $i++,$y+=2,$z+=2){
+                                            echo "<option value='{$i}'>{$y}:00-{$z}:00</option>";
+                                        }
+                                    ?>
                                 </select>
                             </div>
                     </div>

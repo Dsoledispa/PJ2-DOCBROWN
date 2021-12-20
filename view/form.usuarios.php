@@ -27,40 +27,40 @@ if ($_SESSION['email']=="") {
 		<div class="main">
 			<div class="main-center">
 			<h5>Introduce los datos para crear el usuario</h5>
-                <form action="../proceses/agregarusuario.php" method="post" enctype="multipart/form-data">
+                <form action="../proceses/agregarusuario.php" method="post" enctype="multipart/form-data" id="usuarios">
                     <div class="form-group">
                     <label for="nombre_u">Nombre del usuario</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="nombre_u" placeholder="Introduce el nombre">
+                                <input type="text" class="form-control" name="nombre_u" id="nombre_u" placeholder="Introduce el nombre">
                             </div>
                     </div>
                     <div class="form-group">
                     <label for="apellido_u">Apellido del usuario</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" name="apellido_u" placeholder="Introduce el apellido">
+                                <input type="text" class="form-control" name="apellido_u" id="apellido_u" placeholder="Introduce el apellido">
                             </div>
                     </div>
                     <div class="form-group">
                     <label for="correo_u">Correo</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                <input type="email" class="form-control" name="correo_u" placeholder="usuario@docbrown.com">
+                                <input type="email" class="form-control" name="correo_u" id="correo_u" placeholder="usuario@docbrown.com">
                         </div>
                     </div>
                     <div class="form-group">
                     <label for="contraseña_u">Contraseña</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" name="contraseña_u" placeholder="********">
+                                <input type="password" class="form-control" name="contraseña_u" id="contraseña_u" placeholder="********">
                             </div>
                     </div>
                     <div class="form-group">
                     <label for="tipo_u">Tipo de usuario</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <select name="tipo_u" class="form-control form-control-lg">
+                                <select name="tipo_u" id="tipo_u" class="form-control form-control-lg">
                                     <option value="" default>Camarero/Administrador</option>
                                     <option value="camarero">Camarero</option>
                                     <option value="administrador">Administrador</option>
@@ -71,7 +71,7 @@ if ($_SESSION['email']=="") {
                     <label for="disponibilidad_u">Disponibilidad</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <select name="disponibilidad_u" class="form-control form-control-lg">
+                                <select name="disponibilidad_u" id="disponibilidad_u" class="form-control form-control-lg">
                                     <option value="" default>Si/No</option>
                                     <option value="si">Si</option>
                                     <option value="no">No</option>
@@ -83,6 +83,9 @@ if ($_SESSION['email']=="") {
 			</div><!--main-center"-->
 		</div><!--main-->
 	</div><!--container-->
+    <!--Validar formulario-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/usuarios.js"></script>
 </body>
 </html>
 <?php
