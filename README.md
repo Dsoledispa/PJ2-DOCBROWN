@@ -21,19 +21,13 @@ Dentro del navegador web preferido escribimos en la barra de direccion web local
 Una vez dentro de la pagina web, arriba a la derecha clicamos a phpMyAdmin para acceder a este servicio de Xampp, donde pondremos la base de datos del proyecto.
 Ahora procederemos a importar la base de datos, desde el menu importar ubicado en la barra superior derecha. Seleccionamos el archivo .sql ubicado en la carpeta db dentro del proyecto, le damos a continuar y se guardara. La base de datos esta lista.
 
-A continuacion usaremos el programa Visual Studio Code para abrir el proyecto donde crearemos un archivo llamado connection.php (importante escribirlo exactamente), y copiaremos las lineas de codigo a continuación.
+A continuacion usaremos el programa Visual Studio Code para abrir el proyecto donde crearemos un archivo llamado config.php (importante escribirlo exactamente), dentro de la carpeta services, y copiaremos las lineas de codigo a continuación.
 
 ```
 define("SERVIDOR","conexion");
 define("USUARIO","usuario");
 define("PASSWORD","contraseña");
 define("BD","nombre base de datos");
-$servidor = "mysql:host=".SERVIDOR.";dbname=".BD;
-try{
-    $pdo= new PDO($servidor,USUARIO,PASSWORD,array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES UTF8"));
-}catch(PDOException $e){
-    echo $e->getMessage();
-}
 ```
 
 Ahora, dentro de las lineas que empieza con define, substituimos los datos de "conexion", "usuario", "contraseña" y "nombre base de datos" por los propios. Si la base de datos esta instalada en el mismo equipo en donde esta el proyecto, la "conexion" sera "localhost", el "usuario" sera "root", no tendra "contraseña" y la base de datos sera "2122_diegosoledispa".
