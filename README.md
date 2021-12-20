@@ -69,7 +69,7 @@ _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios
 * **Diego Soledispa** - [Diego Soledispa](https://github.com/Dsoledispa)
 
 
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/Dsoledispa/PJ2-DOCBROWN21/contributors) quíenes han participado en este proyecto. 
+También puedes mirar la lista de todos los [contribuyentes](https://github.com/Dsoledispa/PJ2-DOCBROWN/contributors) quíenes han participado en este proyecto. 
 ## Licencia 📄
 
 Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
